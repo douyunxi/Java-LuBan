@@ -8,6 +8,9 @@ import lombok.Data;
 public class User {
 	
 	private Long id;
+	
+	//微信的用户唯一标识
+	private String openId;
 
     private String nickname;
     

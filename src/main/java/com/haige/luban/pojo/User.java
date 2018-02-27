@@ -2,11 +2,18 @@ package com.haige.luban.pojo;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import lombok.Data;
 
+@Entity
 @Data
 public class User {
-	
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	//微信的用户唯一标识
@@ -15,6 +22,21 @@ public class User {
     private String nickname;
     
     private String realName;
+    
+    //微信头像地址
+    private String avatarUrl;
+    
+    //性别 0：未知、1：男、2：女
+    private String gender;
+    
+    private Area country;
+    
+    private Area province ;
+    
+    private Area city;
+    
+    //地址门牌号
+    private String address;
 
     private String password;
     
@@ -24,11 +46,14 @@ public class User {
     //用户类型:管理员、工人、雇主
     private String type;
 
-    private String phone;
+    private String mobile;
 
     private String email;
+    
+    //邮政编码
+    private String postalcode;
 
-    private Date created;
+    private Date createTime;
 
-    private Date updated;
+    private Date updateTime;
 }

@@ -6,9 +6,9 @@ import com.haige.luban.pojo.User;
 
 public interface UserService {
 	
-	User createUser(User user);
+	User addUser(User user);
 	
-	Boolean removeUser(User user);
+	void deleteUser(User user);
 	
 	User updateUser(User user);
 	

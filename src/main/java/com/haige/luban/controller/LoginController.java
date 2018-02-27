@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,8 @@ import com.haige.luban.service.UserService;
 
 @Controller
 public class LoginController {
+	
+	Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
 	private LoginService loginService;
@@ -38,6 +42,7 @@ public class LoginController {
 	@RequestMapping("/login")
 	@ResponseBody
 	Object login(HttpSession session,String code) throws JsonParseException, JsonMappingException, IOException {
+		logger.info("sessionId:"+session.getId());
 		String response=loginService.login(code);
 		ObjectMapper mapper = new ObjectMapper();  
         LoginBo loginBo = mapper.readValue(response, LoginBo.class);
@@ -53,6 +58,7 @@ public class LoginController {
 	@RequestMapping("/isRegistered")
 	@ResponseBody
 	boolean isRegistered(HttpSession session) {
+		logger.info("sessionId:"+session.getId());
 		boolean isRegistered=false;
 		LoginBo loginBo =(LoginBo)session.getAttribute("loginBo");
 		if(loginBo!=null) {
@@ -69,6 +75,27 @@ public class LoginController {
 			}
 		}
 		return isRegistered;
+	}
+
+	
+	@RequestMapping("/register")
+	@ResponseBody
+	boolean register(HttpSession session,User user) {
+		logger.info("sessionId:"+session.getId());
+		boolean success=false;
+		LoginBo loginBo =(LoginBo)session.getAttribute("loginBo");
+		if(loginBo!=null) {
+			String openId=loginBo.getOpenId();
+			user.setOpenId(openId);
+		}
+		else {
+			
+		}
+		User createdUser=userService.addUser(user);
+		if(createdUser!=null) {
+			success=true;
+		}
+		return success;
 	}
 
 }

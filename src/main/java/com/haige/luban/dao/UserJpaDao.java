@@ -6,5 +6,6 @@ import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import com.haige.luban.pojo.User;
 
 public interface UserJpaDao extends JpaRepository<User, Long>,JpaSpecificationExecutor<User> {
-
+	
+	 User findByOpenId(String openId);
 }

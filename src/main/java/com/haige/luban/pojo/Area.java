@@ -17,5 +17,5 @@ public class Area {
     private Long parentId;
 
     //地级市的等级
-    //private Integer level;
+    private Integer level;
 }

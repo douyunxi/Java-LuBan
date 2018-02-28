@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import lombok.Data;
 
@@ -29,11 +30,14 @@ public class User {
     //性别 0：未知、1：男、2：女
     private String gender;
     
+    @ManyToOne
     private Area country;
-    
+    @ManyToOne
     private Area province ;
-    
+    @ManyToOne
     private Area city;
+    @ManyToOne
+    private Area district;
     
     //地址门牌号
     private String address;

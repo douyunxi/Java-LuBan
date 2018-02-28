@@ -3,11 +3,13 @@ package com.haige.luban.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.haige.luban.dao.AreaJpaDao;
 import com.haige.luban.pojo.Area;
 import com.haige.luban.service.AreaService;
 
+@Service
 public class AreaServiceImpl implements AreaService {
 	
 	@Autowired

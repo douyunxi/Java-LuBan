@@ -68,6 +68,8 @@ public class LoginController {
 			if(user!=null) {
 				//用户已注册
 				isRegistered=true;
+				//将用户user存入session为以后使用
+				session.setAttribute("user", user);
 			}
 			else {
 				//用户未注册

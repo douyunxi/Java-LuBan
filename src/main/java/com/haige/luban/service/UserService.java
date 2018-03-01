@@ -2,6 +2,7 @@ package com.haige.luban.service;
 
 import java.util.List;
 
+import com.haige.luban.bo.MyStatus;
 import com.haige.luban.pojo.User;
 
 public interface UserService {
@@ -18,4 +19,5 @@ public interface UserService {
 	
 	List<User> searchUser(User user);
 	
+	MyStatus getMyStatus(User user);
 }

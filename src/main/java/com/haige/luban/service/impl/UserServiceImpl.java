@@ -6,6 +6,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.haige.luban.bo.MyStatus;
+import com.haige.luban.dao.MessageJpaDao;
 import com.haige.luban.dao.UserJpaDao;
 import com.haige.luban.pojo.User;
 import com.haige.luban.service.UserService;
@@ -15,6 +17,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
     private UserJpaDao userJpaDao;
+	
+	@Autowired
+    private MessageJpaDao messageJpaDao;
 
 	@Override
 	public User addUser(User user) {
@@ -48,6 +53,13 @@ public class UserServiceImpl implements UserService {
 	public List<User> searchUser(User user) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public MyStatus getMyStatus(User user) {
+		MyStatus myStatus=new MyStatus();
+		myStatus.setMessages(messageJpaDao.countByReceiver(user));
+		return myStatus;
 	}
 
 }

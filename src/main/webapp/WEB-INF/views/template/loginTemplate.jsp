@@ -52,23 +52,22 @@
 		        <div class="col-md-12 center login-header">
 		            <h2>Welcome to CSF</h2>
 		        </div>
-		        <!--/span-->
-		    </div><!--/row-->
+		    </div>
 	
 		    <div class="row">
 		        <div class="well col-md-5 center login-box">
-		            	<c:choose>
-		            		<c:when test="${errorMsg==null}">
-		            			<div class="alert alert-info">
-			                		Please login with your Username and Password.
-					            </div>
-		            		</c:when>
-		            		<c:otherwise>
-		            			<div class="alert alert-danger">
-			                		${errorMsg}
-					            </div>
-		            		</c:otherwise>
-		            	</c:choose>
+	            	<c:choose>
+	            		<c:when test="${errorMsg==null}">
+	            			<div class="alert alert-info">
+		                		Please login with your Username and Password.
+				            </div>
+	            		</c:when>
+	            		<c:otherwise>
+	            			<div class="alert alert-danger">
+		                		${errorMsg}
+				            </div>
+	            		</c:otherwise>
+	            	</c:choose>
 		            <form id="form" class="form-horizontal" action="${basePath}/<tiles:getAsString name="action" ignore="true"/>" method="post">
 		                <fieldset>
 		                	<div id="userNameGroup">
@@ -102,96 +101,92 @@
 		</div><!--/fluid-row-->
 	</div><!--/.fluid-container-->
 
-		<!-- external javascript -->
-		
-		<script src="${basePath}/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-		
-		<!-- library for cookie management -->
-		<script src="${basePath}/resources/js/jquery.cookie.js"></script>
-		<!-- bootstrap validator-->
-		<script src='${basePath}/resources/bower_components/bootstrapvalidator/dist/js/bootstrapValidator.min.js'></script>
-		<script src='${basePath}/resources/bower_components/bootstrapvalidator/dist/js/language/en_US.js'></script>
-		<!-- calender plugin -->
-		<script src='${basePath}/resources/bower_components/moment/min/moment.min.js'></script>
-		<script src='${basePath}/resources/bower_components/fullcalendar/dist/fullcalendar.min.js'></script>
-		<!-- data table plugin -->
-		<script src='${basePath}/resources/js/jquery.dataTables.min.js'></script>
-		
-		<!-- select or dropdown enhancer -->
-		<script src="${basePath}/resources/bower_components/chosen/chosen.jquery.min.js"></script>
-		<!-- plugin for gallery image view -->
-		<script src="${basePath}/resources/bower_components/colorbox/jquery.colorbox-min.js"></script>
-		<!-- notification plugin -->
-		<script src="${basePath}/resources/js/jquery.noty.js"></script>
-		<!-- library for making tables responsive -->
-		<script src="${basePath}/resources/bower_components/responsive-tables/responsive-tables.js"></script>
-		<!-- tour plugin -->
-		<script src="${basePath}/resources/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js"></script>
-		<!-- star rating plugin -->
-		<script src="${basePath}/resources/js/jquery.raty.min.js"></script>
-		<!-- for iOS style toggle switch -->
-		<script src="${basePath}/resources/js/jquery.iphone.toggle.js"></script>
-		<!-- autogrowing textarea plugin -->
-		<script src="${basePath}/resources/js/jquery.autogrow-textarea.js"></script>
-		<!-- multiple file upload plugin -->
-		<script src="${basePath}/resources/js/jquery.uploadify-3.1.min.js"></script>
-		<!-- history.js for cross-browser state change on ajax -->
-		<script src="${basePath}/resources/js/jquery.history.js"></script>
-		<!-- application script-->
-		<script src="${basePath}/resources/js/app.js"></script>
-		<script>
-			$(function(){
-				
-				$("#userName").val("");
-			    if ($.cookie("rmbUser") == "true") {
-			        $("#remember").prop("checked", true);
-			        $("#userName").val($.cookie("userName"));
-			    }
-				
-				
-				 $('#form').bootstrapValidator({
-				        message: 'This value is not valid',
-				        feedbackIcons: {
-				            valid: 'glyphicon glyphicon-ok',
-				            invalid: 'glyphicon glyphicon-remove',
-				            validating: 'glyphicon glyphicon-refresh'
-				        },
-				        fields: {
-				        	userName: {
-				        		group: '#userNameGroup',
-				                validators: {
-				                    notEmpty: {
-				                        message: 'The Username is required and cannot be empty'
-				                    }
-				                }
-				            },
-				            password: {
-				            	group: '#passwordGroup',
-				                validators: {
-				                    notEmpty: {
-				                        message: 'The Password is required and cannot be empty'
-				                    }
-				                }
-				            }
-				        }
-				    });
-			});
+	<!-- external javascript -->
+	
+	<script src="${basePath}/resources/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+	
+	<!-- library for cookie management -->
+	<script src="${basePath}/resources/js/jquery.cookie.js"></script>
+	<!-- bootstrap validator-->
+	<script src='${basePath}/resources/bower_components/bootstrapvalidator/dist/js/bootstrapValidator.min.js'></script>
+	<script src='${basePath}/resources/bower_components/bootstrapvalidator/dist/js/language/en_US.js'></script>
+	<!-- calender plugin -->
+	<script src='${basePath}/resources/bower_components/moment/min/moment.min.js'></script>
+	<script src='${basePath}/resources/bower_components/fullcalendar/dist/fullcalendar.min.js'></script>
+	<!-- data table plugin -->
+	<script src='${basePath}/resources/js/jquery.dataTables.min.js'></script>
+	
+	<!-- select or dropdown enhancer -->
+	<script src="${basePath}/resources/bower_components/chosen/chosen.jquery.min.js"></script>
+	<!-- plugin for gallery image view -->
+	<script src="${basePath}/resources/bower_components/colorbox/jquery.colorbox-min.js"></script>
+	<!-- notification plugin -->
+	<script src="${basePath}/resources/js/jquery.noty.js"></script>
+	<!-- library for making tables responsive -->
+	<script src="${basePath}/resources/bower_components/responsive-tables/responsive-tables.js"></script>
+	<!-- tour plugin -->
+	<script src="${basePath}/resources/bower_components/bootstrap-tour/build/js/bootstrap-tour.min.js"></script>
+	<!-- star rating plugin -->
+	<script src="${basePath}/resources/js/jquery.raty.min.js"></script>
+	<!-- for iOS style toggle switch -->
+	<script src="${basePath}/resources/js/jquery.iphone.toggle.js"></script>
+	<!-- autogrowing textarea plugin -->
+	<script src="${basePath}/resources/js/jquery.autogrow-textarea.js"></script>
+	<!-- multiple file upload plugin -->
+	<script src="${basePath}/resources/js/jquery.uploadify-3.1.min.js"></script>
+	<!-- history.js for cross-browser state change on ajax -->
+	<script src="${basePath}/resources/js/jquery.history.js"></script>
+	<!-- application script-->
+	<script src="${basePath}/resources/js/app.js"></script>
+	<script>
+		$(function(){
+			
+			$("#userName").val("");
+		    if ($.cookie("rmbUser") == "true") {
+		        $("#remember").prop("checked", true);
+		        $("#userName").val($.cookie("userName"));
+		    }
 			
 			
+			 $('#form').bootstrapValidator({
+		        message: 'This value is not valid',
+		        feedbackIcons: {
+		            valid: 'glyphicon glyphicon-ok',
+		            invalid: 'glyphicon glyphicon-remove',
+		            validating: 'glyphicon glyphicon-refresh'
+		        },
+		        fields: {
+		        	userName: {
+		        		group: '#userNameGroup',
+		                validators: {
+		                    notEmpty: {
+		                        message: 'The Username is required and cannot be empty'
+		                    }
+		                }
+		            },
+		            password: {
+		            	group: '#passwordGroup',
+		                validators: {
+		                    notEmpty: {
+		                        message: 'The Password is required and cannot be empty'
+		                    }
+		                }
+		            }
+		        }
+		    });
+		});
 			
-			
-			function saveUserInfo() {
-			    if (($("#remember").prop("checked") == true) || ($("#remember").prop("checked") == "checked")) {
-			        var userName = $("#userName").val();
-			        $.cookie("rmbUser", "true", { expires: 7 }); // 存储一个带7天期限的 cookie 是否已经选择记录用户名
-			        $.cookie("userName", userName, { expires: 7 }); // 存储一个带7天期限的 cookie
-			    }
-			    else {
-			        $.cookie("rmbUser", null);        // 删除 cookie
-			        $.cookie("userName", null);
-			    }
-			}
-			
+		function saveUserInfo() {
+		    if (($("#remember").prop("checked") == true) || ($("#remember").prop("checked") == "checked")) {
+		        var userName = $("#userName").val();
+		        $.cookie("rmbUser", "true", { expires: 7 }); // 存储一个带7天期限的 cookie 是否已经选择记录用户名
+		        $.cookie("userName", userName, { expires: 7 }); // 存储一个带7天期限的 cookie
+		    }
+		    else {
+		        $.cookie("rmbUser", null);        // 删除 cookie
+		        $.cookie("userName", null);
+		    }
+		}
 		</script>
-	</body>
+</body>
 </html>

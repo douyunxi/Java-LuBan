@@ -1,9 +1,10 @@
 package com.haige.luban.service.impl;
 
 import java.util.Date;
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.haige.luban.bo.MyStatus;
@@ -50,9 +51,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public List<User> searchUser(User user) {
-		// TODO Auto-generated method stub
-		return null;
+	public Page<User> findAllUser(int page,int size) {
+		return userJpaDao.findAll(PageRequest.of(page, size));
 	}
 
 	@Override

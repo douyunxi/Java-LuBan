@@ -6,15 +6,15 @@
 <tiles-definitions>
 	<!-- 顺序很重要，当匹配到第一个后不再向后查找 -->
 	
-	<definition name="login" extends="indexTemplateLayout">
-		<put-attribute name="login" value="/WEB-INF/views/login.jsp" />
+	<definition name="login" extends="loginTemplateLayout">
+		<put-attribute name="action" value="login.html" />  
 	</definition>
 	
-	<definition name="*/*" extends="indexTemplateLayout">
-		<put-attribute name="menu" value="/WEB-INF/views/{1}/menu.jsp" />
+	<definition name="*" extends="indexTemplateLayout">
+		<put-attribute name="menu" value="/WEB-INF/views/menu.jsp" />
 		<put-attribute name="path" value="{1}" />  
-		<put-attribute name="title" value="{2}" />  
-		<put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
+		<put-attribute name="title" value="{1}" />  
+		<put-attribute name="body" value="/WEB-INF/views/{1}.jsp" />
 	</definition>
 	
 </tiles-definitions>

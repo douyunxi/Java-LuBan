@@ -20,6 +20,7 @@ import com.haige.luban.service.LoginService;
 import com.haige.luban.service.UserService;
 
 @Controller
+@RequestMapping("/wechat")
 public class LoginController {
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());

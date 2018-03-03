@@ -8,6 +8,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import lombok.Data;
 
 @Entity
@@ -18,8 +22,10 @@ public class User {
 	private Long id;
 	
 	//微信的用户唯一标识
+	@JsonIgnore
 	private String openId;
 
+	@JsonProperty("nickName")
     private String nickname;
     
     private String realName;
@@ -42,6 +48,7 @@ public class User {
     //地址门牌号
     private String address;
 
+    @JsonIgnore
     private String password;
     
     //身份证号码
@@ -56,8 +63,10 @@ public class User {
     
     //邮政编码
     private String postalcode;
-
+    
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 }

@@ -43,50 +43,84 @@ $(function(){
     	ordering:  false,
 		serverSide: true,
 		ajax: {
-            url: "${basePath}/admin/user/query",
-            callback:function(){
-            	console.log(1111111111111111111111)
-            }
+            url: "${basePath}/admin/user/query"/* ,
+            dataSrc:"content",
+            dataFilter: function(data){
+                var json = jQuery.parseJSON( data );
+                json.recordsTotal = json.total;
+                json.recordsFiltered = json.total;
+                json.data = json.list;
+                return JSON.stringify( json ); // return JSON string
+            }*/
         },
 		columns: [
 			{
-            	data: ""
+            	data: "avatarUrl",
+            	render:function( data, type, row ){
+            		return '<img src="'+data.replace("https","http")+'" width="50"/>';
+            	}
 			},
             {
             	data: "nickname"
 			},
             { 
-            	data: "realnameStatus",
+            	data: "realName"
+            },
+            {
+            	data: "gender",
             	render:function( data, type, row ){
-            		if(data=="NOT_REALNAMED"){
-            			return "Unverified";
+            		var gender="未知";
+            		switch(data){
+            			case "0":gender="未知";break;
+            			case "1":gender="男";break;
+            			case "2":gender="女";break;
             		}
-            		else if(data=="REALNAMED"){
-            			return "Verified";
-            		}
-            		else if(data=="REALNAME_CANCELED"){
-            			return "已注销";
-            		}
+            		return gender;
             	}
             },
             { 
-            	data: "realName"
+            	data: "",
+            	render:function( data, type, row ){
+            		console.log(data,type,row)
+            		return row.country+"-"+row.province+"-"+row.district;
+            	}
             },
             { 
-            	data: "idNo"
+            	data: "address"
             },
             { 
-            	data: "passportNo"
+            	data: "type",
+            	render:function( data, type, row ){
+            		var type="未知";
+            		switch(data){
+            			case "0":type="管理员";break;
+            			case "1":type="工人";break;
+            			case "2":type="雇主";break;
+            		}
+            		return type;
+            	}
             },
             { 
-            	data: "driverNo"
+            	data: "mobile"
+            },
+            {
+            	data: "createTime"/* ,
+            	render:function( data, type, row ){
+            		return moment(data).format("YYYY-MM-DD HH:mm")
+            	} */
+            },
+            {
+            	data: "updateTime"/* ,
+            	render:function( data, type, row ){
+            		return moment(data).format("YYYY-MM-DD HH:mm:ss");
+            	} */
             }
-	    ],
+	    ]/* ,
 	     fnDrawCallback : function(){
 			this.api().column(0).nodes().each(function(cell, i) {
 				cell.innerHTML =  i + 1;
 			});
-		}
+		} */
     });
 });
 var search=function(){

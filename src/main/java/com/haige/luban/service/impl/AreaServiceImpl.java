@@ -36,9 +36,17 @@ public class AreaServiceImpl implements AreaService {
 	}
 
 	@Override
-	public List<Area> searchArea(Area area) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Area> findAreaByLevel(Integer level) {
+		return areaJpaDao.findAreaByLevel(level);
 	}
 
+	@Override
+	public List<Area> findAreaByParentId(Long parentId) {
+		return areaJpaDao.findAreaByParentId(parentId);
+	}
+
+	@Override
+	public List<Area> findAllProvince() {
+		return areaJpaDao.findAreaByLevel(1);
+	}
 }

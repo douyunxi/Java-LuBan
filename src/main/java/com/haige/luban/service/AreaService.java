@@ -14,6 +14,10 @@ public interface AreaService {
 	
 	Area getAreaById(Long id);
 	
-	List<Area> searchArea(Area area);
+	List<Area> findAreaByLevel(Integer level);
+	
+	List<Area> findAreaByParentId(Long parentId);
+	
+	List<Area> findAllProvince();
 	
 }

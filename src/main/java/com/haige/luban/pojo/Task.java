@@ -54,7 +54,10 @@ public class Task {
     
     //项目地区
     @ManyToOne
-    private Area area;
+    private Area district;
+    
+    //具体地址
+    private String address;
     
     //创建者（雇主、客户）
     @ManyToOne
@@ -64,7 +67,7 @@ public class Task {
     @ManyToOne
     private User receiver;
     
-    //施工状态：1.未完成，2.施工中，3.已完成
+    //施工状态：1.未开始，2.施工中，3.已完成
     @Enumerated(EnumType.ORDINAL)
     private EnumTaskStatus status;
     

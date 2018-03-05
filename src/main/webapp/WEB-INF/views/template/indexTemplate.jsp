@@ -20,7 +20,7 @@
 	<link href='${basePath}/resources/css/dataTables.bootstrap.min.css' rel='stylesheet'>
     <link href="${basePath}/resources/css/app.css" rel="stylesheet">
     <link href='${basePath}/resources/bower_components/bootstrapvalidator/dist/css/bootstrapValidator.min.css' rel='stylesheet'>
-    <link href='${basePath}/resources/bower_components/fullcalendar/dist/fullcalendar.css' rel='stylesheet'>
+    <%-- <link href='${basePath}/resources/bower_components/fullcalendar/dist/fullcalendar.css' rel='stylesheet'>
     <link href='${basePath}/resources/bower_components/fullcalendar/dist/fullcalendar.print.css' rel='stylesheet' media='print'>
     <link href='${basePath}/resources/bower_components/chosen/chosen.min.css' rel='stylesheet'>
     <link href='${basePath}/resources/bower_components/colorbox/example3/colorbox.css' rel='stylesheet'>
@@ -32,7 +32,7 @@
     <link href='${basePath}/resources/css/elfinder.theme.css' rel='stylesheet'>
     <link href='${basePath}/resources/css/jquery.iphone.toggle.css' rel='stylesheet'>
     <link href='${basePath}/resources/css/uploadify.css' rel='stylesheet'>
-    <link href='${basePath}/resources/css/animate.min.css' rel='stylesheet'>
+    <link href='${basePath}/resources/css/animate.min.css' rel='stylesheet'> --%>
 
     <!-- jQuery -->
     <script src="${basePath}/resources/bower_components/jquery/jquery.min.js"></script>

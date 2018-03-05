@@ -3,6 +3,8 @@ package com.haige.luban.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.haige.luban.dao.TaskJpaDao;
@@ -61,6 +63,35 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public Long getFinishiedTasksCount(User user) {
 		return taskJpaDao.countByReceiverAndStatus(user,EnumTaskStatus.FINISHED);
+	}
+
+	@Override
+	public Page<Task> getUnfinishiedTasks(User user, int page, int size) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<Task> findAllUnfinishiedTasks(int page, int size) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<Task> getFinishiedTasks(User user, int page, int size) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<Task> findAllFinishiedTasks(int page, int size) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Page<Task> findAllTasks(int page, int size) {
+		return taskJpaDao.findAll(PageRequest.of(page, size));
 	}
 
 }

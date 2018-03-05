@@ -47,22 +47,22 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public List<Task> getUnfinishiedTasks(User user) {
-		return taskJpaDao.findByReceiverAndStatus(user,EnumTaskStatus.UNFINISHED);
+		return taskJpaDao.findByWorkerAndStatus(user,EnumTaskStatus.UNFINISHED);
 	}
 
 	@Override
 	public Long getUnfinishiedTasksCount(User user) {
-		return taskJpaDao.countByReceiverAndStatus(user,EnumTaskStatus.UNFINISHED);
+		return taskJpaDao.countByWorkerAndStatus(user,EnumTaskStatus.UNFINISHED);
 	}
 
 	@Override
 	public List<Task> getFinishiedTasks(User user) {
-		return taskJpaDao.findByReceiverAndStatus(user,EnumTaskStatus.FINISHED);
+		return taskJpaDao.findByWorkerAndStatus(user,EnumTaskStatus.FINISHED);
 	}
 
 	@Override
 	public Long getFinishiedTasksCount(User user) {
-		return taskJpaDao.countByReceiverAndStatus(user,EnumTaskStatus.FINISHED);
+		return taskJpaDao.countByWorkerAndStatus(user,EnumTaskStatus.FINISHED);
 	}
 
 	@Override

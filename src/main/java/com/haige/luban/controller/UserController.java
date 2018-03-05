@@ -1,5 +1,7 @@
 package com.haige.luban.controller;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,5 +58,21 @@ public class UserController {
 		dataTables.setRecordsFiltered(userPage.getTotalElements());
 		dataTables.setData(userPage.getContent());
 		return dataTables;
+	}
+	
+	@RequestMapping("/user/add")
+	String query(User user){
+		User newUser=userService.addUser(user);
+		if(newUser!=null && newUser.getId()!=null) {
+			
+		}
+		return "redirect:/user/query";
+	}
+	
+	@RequestMapping("/user/findAllEmployer")
+	@ResponseBody
+	List<User> query(){
+		List<User> employers=userService.findAllEmployer();
+		return employers;
 	}
 }

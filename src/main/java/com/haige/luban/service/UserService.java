@@ -1,5 +1,7 @@
 package com.haige.luban.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 
 import com.haige.luban.bo.MyStatus;
@@ -18,6 +20,10 @@ public interface UserService {
 	User getUserByOpenId(String openId);
 	
 	Page<User> findAllUser(int page,int size);
+	
+	List<User> findAllEmployer();
+	
+	List<User> findAllWorker();
 	
 	MyStatus getMyStatus(User user);
 }

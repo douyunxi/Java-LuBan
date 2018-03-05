@@ -42,7 +42,7 @@
 				<h4 class="modal-title" id="myModalLabel">新增任务</h4>
 			</div>
 			<div class="modal-body">
-				<form class="form-horizontal" id="addForm">
+				<form class="form-horizontal" id="addForm" action="${basePath}/admin/user/add">
 					<div class="form-group">
 						<label class="col-md-3 control-label">标题:</label>
 						<div class="col-md-7">
@@ -58,9 +58,9 @@
 					<div class="form-group">
 						<label class="col-md-3 control-label">项目地区:</label>
 						<div class="col-md-7">
-							<select class="form-control col-md-2" name="provinces" id="add_provinces"></select>
-							<select class="form-control col-md-2" name="city" id="add_city"></select>
-							<select class="form-control col-md-2" name="district" id="add_district"></select>
+							<select class="form-control" name="provinces" id="add_provinces" style="width:100%"></select>
+							<select class="form-control" name="city" id="add_cities" style="width:100%"></select>
+							<select class="form-control" name="district" id="add_district" style="width:100%"></select>
 						</div>
 					</div>
 					<div class="form-group">
@@ -72,7 +72,7 @@
 					<div class="form-group">
 						<label class="col-md-3 control-label">雇主:</label>
 						<div class="col-md-7">
-							<select class="form-control" name="createUser">
+							<select class="form-control" name="createUser" id="add_employers">
 							</select>
 						</div>
 					</div>
@@ -104,6 +104,8 @@
 <script>
 	$.fn.select2.defaults.set( "theme", "bootstrap" );
 	var table;
+	var provinces=[],employers=[],workers=[];//公用的
+	
 	$(function() {
 		table = $("#prepaidInfo").dataTable({
 			searching : false,
@@ -228,38 +230,74 @@
 
 	    // Validate the form manually
 	    $('#addBtn').click(function() {
-	        $('#addForm').bootstrapValidator('validate');
+	        console.log($('#addForm').bootstrapValidator('validate'));
+	        if($('#addForm').bootstrapValidator('validate')){
+	        	$('#addForm').submit();
+	        }
 	    });
 	    
-	    $('#resetBtn').click(function() {
+	    /* $('#resetBtn').click(function() {
 	        $('#form').data('bootstrapValidator').resetForm(true);
-	    });
+	    }); */
 	    
-	    $("#accountNo").focus();
-	});
-	
-	//公用的省份
-	var provinces=[];
-	
-	$.ajax({
-		url: '${basePath}/admin/area/findAllProvince',
-	  	dataType: 'json',
-	  	success:function(data){
-		  	provinces=data;	
-			$('#add_provinces').select2({
-				data: data
-			});	
-	  	}
-	});
-	
-	$('#add_provinces').on('select2:select', function (e) {
-		var data = e.params.data;
-	    console.log(data);
-	    $('#add_city').select2({
-			ajax: {
-				url: '${basePath}/admin/area/findAllProvince',
-				dataType: 'json'
-		    	
+	    
+	    $.ajax({
+			url: '${basePath}/admin/area/findAllProvince',
+		  	dataType: 'json',
+		  	success:function(data){
+			  	provinces=data;	
+				$('#add_provinces').select2({
+					data: provinces
+				}).trigger('select2:select');
+		  	}
+		});
+		
+		$('#add_provinces').on('select2:select', function (e) {
+			$('#add_cities').val(null).trigger('change');
+			$('#add_district').val(null).trigger('change');
+		    $('#add_cities').select2({
+				ajax: {
+					url: '${basePath}/admin/area/findCities',
+					dataType: 'json',
+			    	data:{
+			    		provinceId:$('#add_provinces').val()
+			    	},
+					processResults: function (data) {
+						return {
+							results: data
+						};
+					}
+			  	}
+			});
+		});
+		
+		$('#add_cities').on('select2:select', function (e) {
+			//var data = e.params.data;
+			$('#add_district').val(null).trigger('change');
+		    $('#add_district').select2({
+				ajax: {
+					url: '${basePath}/admin/area/findDistrictes',
+					dataType: 'json',
+			    	data:{
+			    		cityId:$('#add_cities').val()
+			    	},
+					processResults: function (data) {
+						return {
+							results: data
+						};
+					}
+			  	}
+			});
+		});
+		
+		$.ajax({
+			url: '${basePath}/admin/user/findAllEmployer',
+		  	dataType: 'json',
+		  	success:function(data){
+		  		employers=data;	
+				$('#add_employers').select2({
+					data: employers
+				});
 		  	}
 		});
 	});

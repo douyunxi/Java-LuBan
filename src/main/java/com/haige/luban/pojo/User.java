@@ -11,6 +11,7 @@ import javax.persistence.ManyToOne;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.haige.luban.enums.EnumUserType;
 
 import lombok.Data;
 
@@ -55,7 +56,7 @@ public class User {
     private String idCardNum;
     
     //用户类型:管理员、工人、雇主
-    private String type;
+    private EnumUserType type;
 
     private String mobile;
 

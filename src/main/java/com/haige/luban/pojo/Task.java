@@ -61,11 +61,11 @@ public class Task {
     
     //创建者（雇主、客户）
     @ManyToOne
-    private User createUser;
+    private User employer;
     
     //接收者（工人）
     @ManyToOne
-    private User receiver;
+    private User worker;
     
     //施工状态：1.未开始，2.施工中，3.已完成
     @Enumerated(EnumType.ORDINAL)

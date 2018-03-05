@@ -11,7 +11,7 @@ import com.haige.luban.pojo.User;
 
 public interface TaskJpaDao extends JpaRepository<Task, Long>,JpaSpecificationExecutor<Task> {
 	
-	List<Task> findByReceiverAndStatus(User receiver,EnumTaskStatus status);
+	List<Task> findByWorkerAndStatus(User worker,EnumTaskStatus status);
 	
-	Long countByReceiverAndStatus(User receiver,EnumTaskStatus status);
+	Long countByWorkerAndStatus(User worker,EnumTaskStatus status);
 }

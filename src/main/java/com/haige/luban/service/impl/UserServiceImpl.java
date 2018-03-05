@@ -1,6 +1,7 @@
 package com.haige.luban.service.impl;
 
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.haige.luban.bo.MyStatus;
 import com.haige.luban.dao.MessageJpaDao;
 import com.haige.luban.dao.UserJpaDao;
+import com.haige.luban.enums.EnumUserType;
 import com.haige.luban.pojo.User;
 import com.haige.luban.service.UserService;
 
@@ -60,6 +62,16 @@ public class UserServiceImpl implements UserService {
 		MyStatus myStatus=new MyStatus();
 		myStatus.setMessages(messageJpaDao.countByReceiver(user));
 		return myStatus;
+	}
+
+	@Override
+	public List<User> findAllEmployer() {
+		return userJpaDao.findByType(EnumUserType.EMPLOYER);
+	}
+
+	@Override
+	public List<User> findAllWorker() {
+		return userJpaDao.findByType(EnumUserType.WORKER);
 	}
 
 }

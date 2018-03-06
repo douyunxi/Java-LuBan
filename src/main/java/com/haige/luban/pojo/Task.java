@@ -86,8 +86,8 @@ public class Task {
     private String address;
     
     //创建者（雇主、客户）
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(nullable = false)
+    @ManyToOne
+    @JoinColumn(nullable=false)
     private User employer;
     
     //接收者（工人）

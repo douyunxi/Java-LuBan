@@ -14,10 +14,10 @@
 	        <th>标题</th>
 	        <th>内容</th>
 	        <th>项目地区</th>
-	        <th>具体地址</th>
+	        <!-- <th>具体地址</th> -->
 	        <th>雇主</th>
 	        <th>预计金额</th>
-	        <th>任务创建时间</th>
+	        <!-- <th>任务创建时间</th> -->
 	        <th>计划执行时间</th>
 	        <th>工人</th>
 	        <th>实际执行时间</th>
@@ -72,7 +72,7 @@
 					<div class="form-group">
 						<label class="col-md-3 control-label">雇主:</label>
 						<div class="col-md-7">
-							<select class="form-control" name="employer" id="employer" width="100%">
+							<select class="form-control" name="employer" id="employer" style="width:100%">
 							</select>
 						</div>
 					</div>
@@ -127,7 +127,10 @@
 					data : ""
 				},
 				{
-					data : "title"
+					data : "title",
+					render : function(data, type, row) {
+						return '<a href="${basePath}/admin/task/'+ row.id +'">'+ data +'</a>';
+					}
 				},
 				{
 					data : "content"
@@ -138,23 +141,29 @@
 						return row.province.text + "-" + row.city.text  + (row.district?"-"+row.district.text:"");
 					}
 				},
-				{
+				/* {
 					data : "address"
-				}, 
+				}, */
 				{
-					data : "employer"
+					data : "employer",
+					render : function(data, type, row) {
+						return '<a href="${basePath}/admin/user/'+ data.id +'">'+ data.realName +'</a>';
+					}
 				}, 
 				{
 					data : "estimatedAmount"
 				},
-				{
+				/* {
 					data : "createTime"
-				}, 
+				},  */
 				{
 					data : "planTime"
 				},
 				{
-					data : "worker"
+					data : "worker",
+					render : function(data, type, row) {
+						return data?('<a href="${basePath}/admin/user/'+ data.id +'">'+ data.realName +'</a>'):'';
+					}
 				},
 				{
 					data : "buildingTime"
@@ -355,7 +364,7 @@
 		$('#myModalLabel').html('修改任务');
 		$('#title').val(row.title);
 		$('#form #content').val(row.content);
-		$('#province').val(row.province.id).trigger("select");
+		$('#province').val(row.province.id).trigger("change");
 		findCities();
 		$('#city').val(row.city.id).trigger("select");
 		if(row.district){

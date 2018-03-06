@@ -163,7 +163,7 @@
 		
 		<!-- calender plugin -->
 		<script src='${basePath}/resources/bower_components/moment.js-2.8.3/moment.min.js'></script>
-		<script src='${basePath}resources/bower_components/moment.js-2.8.3/moment-with-locales.min.js'></script>
+		<script src='${basePath}/resources/bower_components/moment.js-2.8.3/moment-with-locales.min.js'></script>
 		<script src="${basePath}/resources/bower_components/bootstrap-datetimepicker-3.1.3/js/bootstrap-datetimepicker.min.js"></script>
 		<%-- <script src='${basePath}/resources/bower_components/fullcalendar/dist/fullcalendar.min.js'></script> --%>
 		<!-- data table plugin -->

@@ -20,6 +20,7 @@
 	<link href='${basePath}/resources/css/dataTables.bootstrap.min.css' rel='stylesheet'>
     <link href="${basePath}/resources/css/app.css" rel="stylesheet">
     <link href='${basePath}/resources/bower_components/bootstrapvalidator/dist/css/bootstrapValidator.min.css' rel='stylesheet'>
+    <link href="${basePath}/resources/bower_components/bootstrap-datetimepicker-3.1.3/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
     <%-- <link href='${basePath}/resources/bower_components/fullcalendar/dist/fullcalendar.css' rel='stylesheet'>
     <link href='${basePath}/resources/bower_components/fullcalendar/dist/fullcalendar.print.css' rel='stylesheet' media='print'>
     <link href='${basePath}/resources/bower_components/chosen/chosen.min.css' rel='stylesheet'>
@@ -161,8 +162,10 @@
 		<script src='${basePath}/resources/bower_components/bootstrapvalidator/dist/js/language/en_US.js'></script>
 		
 		<!-- calender plugin -->
-		<script src='${basePath}/resources/bower_components/moment/min/moment.min.js'></script>
-		<script src='${basePath}/resources/bower_components/fullcalendar/dist/fullcalendar.min.js'></script>
+		<script src='${basePath}/resources/bower_components/moment.js-2.8.3/moment.min.js'></script>
+		<script src='${basePath}resources/bower_components/moment.js-2.8.3/moment-with-locales.min.js'></script>
+		<script src="${basePath}/resources/bower_components/bootstrap-datetimepicker-3.1.3/js/bootstrap-datetimepicker.min.js"></script>
+		<%-- <script src='${basePath}/resources/bower_components/fullcalendar/dist/fullcalendar.min.js'></script> --%>
 		<!-- data table plugin -->
 		<script src='${basePath}/resources/js/jquery.dataTables.min.js'></script>
 		

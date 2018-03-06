@@ -5,15 +5,15 @@ package com.haige.luban.enums;
  * @author linwei
  *
  */
-public enum EnumUserType {
+public enum EnumGenderType {
 	
-	ADMIN(0,"管理员"),EMPLOYER(1,"雇主"),WORKER(2,"工人");
+	UNKNOW(0,"未知"),MAN(1,"男"),WOMAN(2,"女");
 	
 	private Integer code;
 	
 	private String desc;
 	
-	private EnumUserType(Integer code, String desc) {
+	private EnumGenderType(Integer code, String desc) {
 		this.code = code;
 		this.desc = desc;
 	}
@@ -35,9 +35,9 @@ public enum EnumUserType {
 	}
 	
 	public static String getDesc(Integer code){
-		for(EnumUserType userType : EnumUserType.values()){
-			if(userType.getCode().equals(code)){
-				return userType.getDesc();
+		for(EnumGenderType genderType : EnumGenderType.values()){
+			if(genderType.getCode().equals(code)){
+				return genderType.getDesc();
 			}
 		}
 		return null;

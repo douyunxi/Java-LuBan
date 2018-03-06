@@ -7,7 +7,7 @@ package com.haige.luban.enums;
  */
 public enum EnumTaskStatus {
 	
-	UNFINISHED(1,"未完成"),PROCESSING(2,"处理中"),FINISHED(3,"已完成");
+	NO_START(0,"未开始"),DISPATCHED(1,"已派单"),REJECT(2,"已拒单"),RECEIPT(3,"已接单"),PROCESSING(4,"进行中"),FINISHED(5,"已完成");
 	
 	private Integer code;
 	

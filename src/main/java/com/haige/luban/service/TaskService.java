@@ -24,7 +24,7 @@ public interface TaskService {
 	 * @param user
 	 * @return
 	 */
-	List<Task> getUnfinishiedTasks(User user);
+	List<Task> getNoStartTasks(User user);
 	
 	/**
 	 * 分页获得未完成的任务
@@ -33,7 +33,7 @@ public interface TaskService {
 	 * @param size
 	 * @return
 	 */
-	Page<Task> getUnfinishiedTasks(User user,int page,int size);
+	Page<Task> getNoStartTasks(User user,int page,int size);
 	
 	/**
 	 * 分页获得所有未完成的任务
@@ -41,14 +41,14 @@ public interface TaskService {
 	 * @param size
 	 * @return
 	 */
-	Page<Task> findAllUnfinishiedTasks(int page,int size);
+	Page<Task> findAllNoStartTasks(int page,int size);
 	
 	/**
 	 * 获得未完成的任务数
 	 * @param user
 	 * @return
 	 */
-	Long getUnfinishiedTasksCount(User user);
+	Long getNoStartTasksCount(User user);
 	
 	/**
 	 * 获得已完成的任务

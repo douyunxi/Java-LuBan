@@ -41,4 +41,11 @@ public class TaskController {
 		dataTables.setData(taskPage.getContent());
 		return dataTables;
 	}
+	
+	@RequestMapping("/task/add")
+	@ResponseBody
+	boolean add(Task task){
+		Task newTask=taskService.addTask(task);
+		return true;
+	}
 }

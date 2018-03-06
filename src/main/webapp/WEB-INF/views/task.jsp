@@ -5,7 +5,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <c:set var="basePath" value="${pageContext.request.contextPath }" scope="application"/>
 <div class="col-md-12">
-	<button class="btn btn-success pull-right" data-toggle="modal" data-target="#addModal">新增</button>
+	<button class="btn btn-info pull-right" onclick="showAddModal()">新增</button>
 </div>
 <table id="prepaidInfo" class="table table-striped table-bordered bootstrap-datatable datatable responsive" style="width:100%">
     <thead>
@@ -31,8 +31,8 @@
     </tbody>
 </table>
 
-<!-- Modal -->
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<!--add Modal -->
+<div class="modal fade" id="add_edit_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -42,50 +42,50 @@
 				<h4 class="modal-title" id="myModalLabel">新增任务</h4>
 			</div>
 			<div class="modal-body">
-				<form class="form-horizontal" id="addForm" action="${basePath}/admin/user/add">
+				<form class="form-horizontal" id="form">
 					<div class="form-group">
 						<label class="col-md-3 control-label">标题:</label>
 						<div class="col-md-7">
-							<input type="text" class="form-control" name="title" placeholder="">
+							<input type="text" class="form-control" id="title" name="title" placeholder="">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-3 control-label">内容:</label>
 						<div class="col-md-7">
-							<input type="text" class="form-control" name="content" placeholder="">
+							<input type="text" class="form-control" id="content" name="content" placeholder="">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-3 control-label">项目地区:</label>
 						<div class="col-md-7">
-							<select class="form-control" name="provinces" id="add_provinces" style="width:100%"></select>
-							<select class="form-control" name="city" id="add_cities" style="width:100%"></select>
-							<select class="form-control" name="district" id="add_district" style="width:100%"></select>
+							<select class="form-control" name="province" id="province" style="width:100%"></select>
+							<select class="form-control" name="city" id="city" style="width:100%"></select>
+							<select class="form-control" name="district" id="district" style="width:100%"></select>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-3 control-label">具体地址:</label>
 						<div class="col-md-7">
-							<input type="text" class="form-control" name="address" placeholder="">
+							<input type="text" class="form-control" id="address" name="address" placeholder="">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-3 control-label">雇主:</label>
 						<div class="col-md-7">
-							<select class="form-control" name="createUser" id="add_employers">
+							<select class="form-control" name="employer" id="employer" width="100%">
 							</select>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-3 control-label">预计金额:</label>
 						<div class="col-md-7">
-							<input type="text" class="form-control" name="estimatedAmount" placeholder="">
+							<input type="text" class="form-control" id="estimatedAmount" name="estimatedAmount" placeholder="">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-3 control-label">计划执行时间:</label>
 						<div class="col-md-7">
-							<input type="text" class="form-control" name="planTime" placeholder="">
+							<input type="text" class="form-control" name="planTime" id="planTime" placeholder="">
 						</div>
 					</div>
 				</form>
@@ -97,13 +97,14 @@
 		</div>
 	</div>
 </div>
+
 <link href="${basePath}/resources/bower_components/select2-4.0.5/dist/css/select2.min.css" rel="stylesheet" />
 <link href="${basePath}/resources/bower_components/select2-bootstrap-theme/dist/select2-bootstrap.min.css" rel="stylesheet" />
 <script src="${basePath}/resources/bower_components/select2-4.0.5/dist/js/select2.min.js"></script>
 <script src="${basePath}/resources/bower_components/select2-4.0.5/dist/js/i18n/zh-CN.js"></script>
 <script>
 	$.fn.select2.defaults.set( "theme", "bootstrap" );
-	var table;
+	var table,selectedRow;
 	var provinces=[],employers=[],workers=[];//公用的
 	
 	$(function() {
@@ -134,15 +135,14 @@
 				{
 					data : "area",
 					render : function(data, type, row) {
-						console.log(data, type, row)
-						return row.province + "-" + row.city + "-" + row.district;
+						return row.province.text + "-" + row.city.text  + (row.district?"-"+row.district.text:"");
 					}
 				},
 				{
 					data : "address"
 				}, 
 				{
-					data : "createUser"
+					data : "employer"
 				}, 
 				{
 					data : "estimatedAmount"
@@ -154,7 +154,7 @@
 					data : "planTime"
 				},
 				{
-					data : "receiver"
+					data : "worker"
 				},
 				{
 					data : "buildingTime"
@@ -170,32 +170,32 @@
 					render : function(data, type, row) {
 						var status = "未开始";
 						switch (data) {
-							case "1":
+							case "NO_START":
 								status = '<span class="label label-default label-info">未开始</span>';break;
-							case "2":
+							case "PROCESSING":
 								status = '<span class="label label-default label-danger">施工中</span>';break;
-							case "3":
+							case "FINISHED":
 								status = '<span class="label label-default label-success">已完成</span>';break;
 						}
 						return status;
 					}
 				},
 				{
-					data : "",
+					data : "id",
 					render : function(data, type, row) {
-						return 
-							'<a class="btn btn-info" href="#">'+
-	                			'<i class="glyphicon glyphicon-edit icon-white"></i>'+
-	                			'分配任务'+
-	            			'</a>'+
-							'<a class="btn btn-warning" href="#">'+
-	                			'<i class="glyphicon glyphicon-edit icon-white"></i>'+
-	                			'编辑'+
-	            			'</a>'+
-							'<a class="btn btn-danger" href="#">'
-				                '<i class="glyphicon glyphicon-trash icon-white"></i>'+
-				                '删除'+
-				            '</a>';
+						selectedRow=row;
+						return 	'<btn class="btn btn-xs btn-success">'+
+		                			'<i class="glyphicon glyphicon-share icon-white"></i>'+
+		                			' 派单'+
+		            			'</btn>'+
+								'<btn class="btn btn-xs btn-warning" onclick="showEditModal()">'+
+		                			'<i class="glyphicon glyphicon-edit icon-white"></i>'+
+		                			' 编辑'+
+		            			'</btn>'+
+								'<btn class="btn btn-xs btn-danger">'+
+					                '<i class="glyphicon glyphicon-trash icon-white"></i>'+
+					                ' 删除'+
+					            '</btn>';
 					}
 				}],
 			fnDrawCallback : function() {
@@ -203,7 +203,7 @@
 			}
 		});
 		
-		$('#addForm').bootstrapValidator({
+		$('#form').bootstrapValidator({
 	        message: 'This value is not valid',
 	        feedbackIcons: {
 	            valid: 'glyphicon glyphicon-ok',
@@ -230,9 +230,25 @@
 
 	    // Validate the form manually
 	    $('#addBtn').click(function() {
-	        console.log($('#addForm').bootstrapValidator('validate'));
-	        if($('#addForm').bootstrapValidator('validate')){
-	        	$('#addForm').submit();
+	        $('#form').bootstrapValidator('validate');
+	        if($("#form").data('bootstrapValidator').isValid()){
+	        	$.ajax({
+	                //几个参数需要注意一下
+                    type: "POST",//方法类型
+                    dataType: "json",//预期服务器返回的数据类型
+                    url: "${basePath}/admin/task/add" ,
+                    data: $('#form').serialize(),
+                    success: function (result) {
+                        console.log(result);
+                        if (result.resultCode == 200) {
+                            alert("SUCCESS");
+                        }
+                        ;
+                    },
+                    error : function() {
+                        alert("异常！");
+                    }
+                });
 	        }
 	    });
 	    
@@ -246,61 +262,111 @@
 		  	dataType: 'json',
 		  	success:function(data){
 			  	provinces=data;	
-				$('#add_provinces').select2({
+				$('#province').select2({
 					data: provinces
 				}).trigger('select2:select');
 		  	}
 		});
 		
-		$('#add_provinces').on('select2:select', function (e) {
-			$('#add_cities').val(null).trigger('change');
-			$('#add_district').val(null).trigger('change');
-		    $('#add_cities').select2({
-				ajax: {
-					url: '${basePath}/admin/area/findCities',
-					dataType: 'json',
-			    	data:{
-			    		provinceId:$('#add_provinces').val()
-			    	},
-					processResults: function (data) {
-						return {
-							results: data
-						};
-					}
-			  	}
-			});
+		$('#province').on('select2:select', function (e) {
+			$('#city').val(null).trigger('change');
+			$('#district').val(null).trigger('change');
+			findCities();
 		});
 		
-		$('#add_cities').on('select2:select', function (e) {
+		$('#city').on('select2:select', function (e) {
 			//var data = e.params.data;
-			$('#add_district').val(null).trigger('change');
-		    $('#add_district').select2({
-				ajax: {
-					url: '${basePath}/admin/area/findDistrictes',
-					dataType: 'json',
-			    	data:{
-			    		cityId:$('#add_cities').val()
-			    	},
-					processResults: function (data) {
-						return {
-							results: data
-						};
-					}
-			  	}
-			});
+			$('#district').val(null).trigger('change');
+			findDistrict();
 		});
 		
 		$.ajax({
 			url: '${basePath}/admin/user/findAllEmployer',
 		  	dataType: 'json',
 		  	success:function(data){
-		  		employers=data;	
-				$('#add_employers').select2({
+		  		//数据转换
+		  		for(var i=0;i<data.length;i++){
+		  			employers.push({id:data[i].id,text:data[i].realName});
+		  		}
+				$('#employer').select2({
 					data: employers
-				});
+				}).trigger("change");
 		  	}
 		});
+		
+		$('#planTime').datetimepicker({
+			language:'zh-cn',
+			format:"YYYY-MM-DD HH:mm:ss",
+			useCurrent : false,
+			useSeconds: true,
+			autoclose:true
+		})//.setMinDate(now());;
+		
 	});
 	
+	var findCities=function(){
+		$('#city').select2({
+			ajax: {
+				url: '${basePath}/admin/area/findCities',
+				dataType: 'json',
+		    	data:{
+		    		provinceId:$('#province').val()
+		    	},
+				processResults: function (data) {
+					return {
+						results: data
+					};
+				}
+		  	}/* ,
+		  	templateResult:function(){
+		  		alert(1);
+		  	},
+		  	templateSelection:function(){
+		  		alert(2);
+		  	} */
+		});
+	};
+	
+	var findDistrict=function(){
+		$('#district').select2({
+			ajax: {
+				url: '${basePath}/admin/area/findDistrictes',
+				dataType: 'json',
+		    	data:{
+		    		cityId:$('#city').val()
+		    	},
+				processResults: function (data) {
+					return {
+						results: data
+					};
+				}
+		  	}
+		});
+	};
+	
+	var showAddModal=function(){
+		$('#add_edit_modal').modal('show');
+		$('#myModalLabel').html('新增任务');
+		$('form input').val('');
+	};
+	var showEditModal=function(row){
+		var row=selectedRow;
+		$('#add_edit_modal').modal('show');
+		$('#myModalLabel').html('修改任务');
+		$('#title').val(row.title);
+		$('#form #content').val(row.content);
+		$('#province').val(row.province.id).trigger("select");
+		findCities();
+		$('#city').val(row.city.id).trigger("select");
+		if(row.district){
+			findDistrict();
+			$('#district').val(row.district.id).trigger("select");
+		}
+		$('#address').val(row.address);
+		//console.log(row,row.employer)
+		//$('#employer').val(row.employer.id).trigger("select");
+		$('#estimatedAmount').val(row.estimatedAmount);
+		$('#planTime').val(row.planTime);
+	};
 </script>
 

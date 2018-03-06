@@ -16,3 +16,4 @@ target/classes/application.properties
 .settings/org.eclipse.wst.common.project.facet.core.xml
 target/classes/application-dev.properties
 target/classes/tiles.xml
+/target/

@@ -21,6 +21,7 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public Task addTask(Task task) {
+		task.setStatus(EnumTaskStatus.NO_START);
 		return taskJpaDao.save(task);
 	}
 
@@ -46,13 +47,13 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public List<Task> getUnfinishiedTasks(User user) {
-		return taskJpaDao.findByWorkerAndStatus(user,EnumTaskStatus.UNFINISHED);
+	public List<Task> getNoStartTasks(User user) {
+		return taskJpaDao.findByWorkerAndStatus(user,EnumTaskStatus.NO_START);
 	}
 
 	@Override
-	public Long getUnfinishiedTasksCount(User user) {
-		return taskJpaDao.countByWorkerAndStatus(user,EnumTaskStatus.UNFINISHED);
+	public Long getNoStartTasksCount(User user) {
+		return taskJpaDao.countByWorkerAndStatus(user,EnumTaskStatus.NO_START);
 	}
 
 	@Override
@@ -66,13 +67,13 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public Page<Task> getUnfinishiedTasks(User user, int page, int size) {
+	public Page<Task> getNoStartTasks(User user, int page, int size) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Page<Task> findAllUnfinishiedTasks(int page, int size) {
+	public Page<Task> findAllNoStartTasks(int page, int size) {
 		// TODO Auto-generated method stub
 		return null;
 	}

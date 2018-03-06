@@ -1,13 +1,13 @@
 $(document).ready(function () {
     //themes, change CSS with JS
     //default theme(CSS) is cerulean, change it if needed
-    //var defaultTheme = 'cerulean';
-
-    //var currentTheme = $.cookie('currentTheme') == null ? defaultTheme : $.cookie('currentTheme');
+	
+    var defaultTheme = 'cerulean';
+    var currentTheme = $.cookie('currentTheme') == null ? defaultTheme : $.cookie('currentTheme');
     var msie = navigator.userAgent.match(/msie/i);
     $.browser = {};
     $.browser.msie = {};
-    switchTheme(currentTheme);
+    //switchTheme(currentTheme);
 
     $('.navbar-toggle').click(function (e) {
         e.preventDefault();
@@ -298,7 +298,7 @@ function docReady() {
     });
 
 
-    $('#calendar').fullCalendar({
+    /*$('#calendar').fullCalendar({
         header: {
             left: 'prev,next today',
             center: 'title',
@@ -344,7 +344,7 @@ function docReady() {
                 start: '2014-06-28'
             }
         ]
-    });
+    });*/
 
 }
 

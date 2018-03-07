@@ -42,50 +42,53 @@
 				<h4 class="modal-title" id="myModalLabel">新增任务</h4>
 			</div>
 			<div class="modal-body">
-				<form class="form-horizontal" id="form">
+				<form class="form-horizontal" id="form" data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
+                    data-bv-feedbackicons-invalid="glyphicon glyphicon-remove"
+                    data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
+                    <input type="hidden" id="id" name="id"/>
 					<div class="form-group">
 						<label class="col-md-3 control-label">标题:</label>
 						<div class="col-md-7">
-							<input type="text" class="form-control" id="title" name="title" placeholder="">
+							<input type="text" class="form-control" id="title" name="title" placeholder="" data-bv-notempty="true" data-bv-notempty-message="必填项">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-3 control-label">内容:</label>
 						<div class="col-md-7">
-							<input type="text" class="form-control" id="content" name="content" placeholder="">
+							<input type="text" class="form-control" id="content" name="content" placeholder="" data-bv-notempty="true" data-bv-notempty-message="必填项">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-3 control-label">项目地区:</label>
 						<div class="col-md-7">
-							<select class="form-control" name="province" id="province" style="width:100%"></select>
-							<select class="form-control" name="city" id="city" style="width:100%"></select>
+							<select class="form-control" name="province" id="province" style="width:100%" data-bv-notempty="true" data-bv-notempty-message="必填项"></select>
+							<select class="form-control" name="city" id="city" style="width:100%" data-bv-notempty="true"  data-bv-notempty-message="必填项"></select>
 							<select class="form-control" name="district" id="district" style="width:100%"></select>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-3 control-label">具体地址:</label>
 						<div class="col-md-7">
-							<input type="text" class="form-control" id="address" name="address" placeholder="">
+							<input type="text" class="form-control" id="address" name="address" placeholder="" data-bv-notempty="true" data-bv-notempty-message="必填项">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-3 control-label">雇主:</label>
 						<div class="col-md-7">
-							<select class="form-control" name="employer" id="employer" style="width:100%">
+							<select class="form-control" name="employer" id="employer" style="width:100%" data-bv-notempty="true" data-bv-notempty-message="必填项">
 							</select>
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-3 control-label">预计金额:</label>
 						<div class="col-md-7">
-							<input type="text" class="form-control" id="estimatedAmount" name="estimatedAmount" placeholder="">
+							<input type="text" class="form-control" id="estimatedAmount" name="estimatedAmount" placeholder="" data-bv-notempty="true" data-bv-notempty-message="必填项">
 						</div>
 					</div>
 					<div class="form-group">
 						<label class="col-md-3 control-label">计划执行时间:</label>
 						<div class="col-md-7">
-							<input type="text" class="form-control" name="planTime" id="planTime" placeholder="">
+							<input type="text" class="form-control" name="planTime" id="planTime" placeholder="" data-bv-notempty="true" data-bv-notempty-message="必填项">
 						</div>
 					</div>
 				</form>
@@ -98,13 +101,63 @@
 	</div>
 </div>
 
+<!--dispatch Modal -->
+<div class="modal fade" id="dispatch_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">派单</h4>
+			</div>
+			<div class="modal-body">
+				<form class="form-horizontal" id="form">
+					<div class="form-group">
+						<label class="col-md-3 control-label">分派给:</label>
+						<div class="col-md-7">
+							<select class="form-control" name="worker" id="worker" style="width:100%" data-bv-notempty="true" data-bv-notempty-message="必填项">
+							</select>
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-primary" onclick="dispatchTask()">保存</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--delete Modal -->
+<div class="modal fade" id="delete_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">删除</h4>
+			</div>
+			<div class="modal-body">
+				确认删除这一条任务吗？
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-danger" onclick="deleteTask()">确认</button>
+			</div>
+		</div>
+	</div>
+</div>
+
 <link href="${basePath}/resources/bower_components/select2-4.0.5/dist/css/select2.min.css" rel="stylesheet" />
 <link href="${basePath}/resources/bower_components/select2-bootstrap-theme/dist/select2-bootstrap.min.css" rel="stylesheet" />
 <script src="${basePath}/resources/bower_components/select2-4.0.5/dist/js/select2.min.js"></script>
 <script src="${basePath}/resources/bower_components/select2-4.0.5/dist/js/i18n/zh-CN.js"></script>
 <script>
 	$.fn.select2.defaults.set( "theme", "bootstrap" );
-	var table,selectedRow;
+	var table,selectedId;
 	var provinces=[],employers=[],workers=[];//公用的
 	
 	$(function() {
@@ -191,17 +244,16 @@
 				},
 				{
 					data : "id",
-					render : function(data, type, row) {
-						selectedRow=row;
-						return 	'<btn class="btn btn-xs btn-success">'+
+					render : function(data, type, row, position) {
+						return 	'<btn class="btn btn-xs btn-success" onclick="showDispatchModal('+ data +')">'+
 		                			'<i class="glyphicon glyphicon-share icon-white"></i>'+
 		                			' 派单'+
 		            			'</btn>'+
-								'<btn class="btn btn-xs btn-warning" onclick="showEditModal()">'+
+								'<btn class="btn btn-xs btn-warning" onclick="showEditModal('+ position.row +')">'+
 		                			'<i class="glyphicon glyphicon-edit icon-white"></i>'+
 		                			' 编辑'+
 		            			'</btn>'+
-								'<btn class="btn btn-xs btn-danger">'+
+								'<btn class="btn btn-xs btn-danger" onclick="showDeleteModal('+ data +')">'+
 					                '<i class="glyphicon glyphicon-trash icon-white"></i>'+
 					                ' 删除'+
 					            '</btn>';
@@ -212,7 +264,8 @@
 			}
 		});
 		
-		$('#form').bootstrapValidator({
+		// Validate the form manually
+		/* $('#form').bootstrapValidator({
 	        message: 'This value is not valid',
 	        feedbackIcons: {
 	            valid: 'glyphicon glyphicon-ok',
@@ -235,31 +288,7 @@
 	                }
 	            }
 	        }
-	    });
-
-	    // Validate the form manually
-	    $('#addBtn').click(function() {
-	        $('#form').bootstrapValidator('validate');
-	        if($("#form").data('bootstrapValidator').isValid()){
-	        	$.ajax({
-	                //几个参数需要注意一下
-                    type: "POST",//方法类型
-                    dataType: "json",//预期服务器返回的数据类型
-                    url: "${basePath}/admin/task/add" ,
-                    data: $('#form').serialize(),
-                    success: function (result) {
-                        console.log(result);
-                        if (result.resultCode == 200) {
-                            alert("SUCCESS");
-                        }
-                        ;
-                    },
-                    error : function() {
-                        alert("异常！");
-                    }
-                });
-	        }
-	    });
+	    }); */
 	    
 	    /* $('#resetBtn').click(function() {
 	        $('#form').data('bootstrapValidator').resetForm(true);
@@ -273,11 +302,12 @@
 			  	provinces=data;	
 				$('#province').select2({
 					data: provinces
-				}).trigger('select2:select');
+				}).trigger('change');
 		  	}
 		});
 		
 		$('#province').on('select2:select', function (e) {
+			$('#city').empty();//删除子元素(option)
 			$('#city').val(null).trigger('change');
 			$('#district').val(null).trigger('change');
 			findCities();
@@ -285,6 +315,7 @@
 		
 		$('#city').on('select2:select', function (e) {
 			//var data = e.params.data;
+			$('#district').empty();//删除子元素(option)
 			$('#district').val(null).trigger('change');
 			findDistrict();
 		});
@@ -299,7 +330,8 @@
 		  		}
 				$('#employer').select2({
 					data: employers
-				}).trigger("change");
+				});
+				$('#employer').val('').trigger('change');
 		  	}
 		});
 		
@@ -310,11 +342,36 @@
 			useSeconds: true,
 			autoclose:true
 		})//.setMinDate(now());;
-		
 	});
 	
-	var findCities=function(){
-		$('#city').select2({
+	var findCities=function(id,callback){
+		$.ajax({
+			url: '${basePath}/admin/area/findCities',
+		  	dataType: 'json',
+		  	data:{
+	    		provinceId:$('#province').val()
+	    	},
+		  	success:function(data){
+		  		//数据转换
+		  		var cities=[];
+		  		for(var i=0;i<data.length;i++){
+		  			cities.push({id:data[i].id,text:data[i].text});
+		  		}
+				$('#city').select2({
+					data: cities
+				});
+				if(id){
+					$('#city').val(id).trigger("change");
+					if(callback){
+						callback();
+					}
+				}
+				else{
+					$('#city').val('').trigger('change');
+				}
+		  	}
+		});
+		/* $('#city').select2({
 			ajax: {
 				url: '${basePath}/admin/area/findCities',
 				dataType: 'json',
@@ -326,56 +383,131 @@
 						results: data
 					};
 				}
-		  	}/* ,
+		  	},
 		  	templateResult:function(){
 		  		alert(1);
 		  	},
 		  	templateSelection:function(){
 		  		alert(2);
-		  	} */
-		});
+		  	}
+		}); */
 	};
 	
-	var findDistrict=function(){
-		$('#district').select2({
-			ajax: {
-				url: '${basePath}/admin/area/findDistrictes',
-				dataType: 'json',
-		    	data:{
-		    		cityId:$('#city').val()
-		    	},
-				processResults: function (data) {
-					return {
-						results: data
-					};
+	var findDistrict=function(id){
+		$.ajax({
+			url: '${basePath}/admin/area/findDistrictes',
+		  	dataType: 'json',
+		  	data:{
+		  		cityId:$('#city').val()
+	    	},
+		  	success:function(data){
+		  		//数据转换
+		  		var districts=[];
+		  		for(var i=0;i<data.length;i++){
+		  			districts.push({id:data[i].id,text:data[i].text});
+		  		}
+				$('#district').select2({
+					data: districts
+				});
+				if(id){
+					$('#district').val(id).trigger("change");
+				}
+				else{
+					$('#district').val('').trigger("change");
 				}
 		  	}
 		});
 	};
-	
 	var showAddModal=function(){
 		$('#add_edit_modal').modal('show');
 		$('#myModalLabel').html('新增任务');
 		$('form input').val('');
+		$('#province,#city,#district,#employer').val('').trigger('change');
 	};
 	var showEditModal=function(row){
-		var row=selectedRow;
+		var data=table.api().data()[row];
 		$('#add_edit_modal').modal('show');
 		$('#myModalLabel').html('修改任务');
-		$('#title').val(row.title);
-		$('#form #content').val(row.content);
-		$('#province').val(row.province.id).trigger("change");
-		findCities();
-		$('#city').val(row.city.id).trigger("select");
-		if(row.district){
-			findDistrict();
-			$('#district').val(row.district.id).trigger("select");
-		}
-		$('#address').val(row.address);
-		//console.log(row,row.employer)
-		//$('#employer').val(row.employer.id).trigger("select");
-		$('#estimatedAmount').val(row.estimatedAmount);
-		$('#planTime').val(row.planTime);
+		$('#id').val(data.id);
+		$('#title').val(data.title);
+		$('#form #content').val(data.content);
+		$('#province').val(data.province.id).trigger("change").trigger("select");
+		findCities(data.city.id,function(){
+			if(data.district){
+				findDistrict(data.district.id);
+			}
+		});
+		
+		$('#address').val(data.address);
+		$('#employer').val(data.employer.id).trigger("change");
+		$('#estimatedAmount').val(data.estimatedAmount);
+		$('#planTime').val(data.planTime);
+	};
+	$('#add_edit_modal').on('show.bs.modal', function (e) {
+		$('#form').bootstrapValidator('validate');//验证初始化
+	});
+	$('#add_edit_modal').on('hidden.bs.modal', function (e) {
+		$('#form').data('bootstrapValidator').destroy();//验证状态清空
+	});
+	$('#addBtn').click(function() {
+        $('#form').bootstrapValidator('validate');
+        if($("#form").data('bootstrapValidator').isValid()){
+        	$.ajax({
+                //几个参数需要注意一下
+                type: "POST",//方法类型
+                dataType: "json",//预期服务器返回的数据类型
+                url: "${basePath}/admin/task/add" ,
+                data: $('#form').serialize(),
+                success: function (result) {
+                	if(result){
+                		$("#add_edit_modal").modal('hide');
+                    	table.api().ajax.reload();
+                	}
+                },
+                error : function() {
+                    alert("异常！");
+                }
+            });
+        }
+    });
+	var showDispatchModal=function(id){
+		selectedId=id;
+		$('#dispatch_modal').modal('show');
+		$('#worker').val('').trigger("change");
+	};
+	var dispatchTask=function(){
+		$.ajax({
+			url: '${basePath}/admin/task/dispatch',
+		  	dataType: 'json',
+		  	data:{
+		  		id:selectedId
+	    	},
+		  	success:function(result){
+		  		if(result){
+            		$("#dispatch_modal").modal('hide');
+                	table.api().ajax.reload();
+            	}
+		  	}
+		});
+	};
+	var showDeleteModal=function(id){
+		selectedId=id;
+		$('#delete_modal').modal('show');
+	};
+	var deleteTask=function(){
+		$.ajax({
+			url: '${basePath}/admin/task/delete',
+		  	dataType: 'json',
+		  	data:{
+		  		id:selectedId
+	    	},
+		  	success:function(result){
+		  		if(result){
+            		$("#delete_modal").modal('hide');
+                	table.api().ajax.reload();
+            	}
+		  	}
+		});
 	};
 </script>
 

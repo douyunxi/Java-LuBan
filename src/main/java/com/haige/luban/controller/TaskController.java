@@ -45,7 +45,21 @@ public class TaskController {
 	@RequestMapping("/task/add")
 	@ResponseBody
 	boolean add(Task task){
-		Task newTask=taskService.addTask(task);
+		taskService.addTask(task);
+		return true;
+	}
+	
+	@RequestMapping("/task/update")
+	@ResponseBody
+	boolean update(Task task){
+		taskService.updateTask(task);
+		return true;
+	}
+	
+	@RequestMapping("/task/delete")
+	@ResponseBody
+	boolean delete(Task task){
+		taskService.deleteTask(task);;
 		return true;
 	}
 }

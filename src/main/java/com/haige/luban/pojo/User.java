@@ -11,6 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -30,13 +33,16 @@ public class User {
 	//微信的用户唯一标识
 	@JsonIgnore
 	@Column(unique=true,nullable=false)
+	@NotNull
 	private String openId;
 
 	@JsonProperty("nickName")
 	@Column(nullable=false)
+	@NotBlank
     private String nickname;
     
 	@Column(nullable=false)
+	@NotBlank
     private String realName;
     
     //微信头像地址
@@ -51,10 +57,12 @@ public class User {
     
     @ManyToOne
     @JoinColumn(nullable = false)
+    @NotNull
     private Area province ;
     
     @ManyToOne
     @JoinColumn(nullable = false)
+    @NotNull
     private Area city;
     
     @ManyToOne
@@ -71,11 +79,14 @@ public class User {
     
     //用户类型:管理员、工人、雇主
     @Enumerated(EnumType.ORDINAL)
+    @NotNull
     private EnumUserType type;
 
     @Column(nullable=true)
+    @NotBlank
     private String mobile;
 
+    @Email
     private String email;
     
     //邮政编码

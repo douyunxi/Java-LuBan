@@ -7,12 +7,15 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.Future;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -36,10 +39,12 @@ public class Task {
 
 	//标题
 	@Column(nullable=false)
+	@NotBlank
     private String title;
 
     //内容
     @Column(nullable=false)
+    @NotBlank
     private String content;
 
     //任务创建时间
@@ -50,6 +55,8 @@ public class Task {
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(nullable=false)
+    @Future
+    @NotNull
     private Date planTime;
     
     //实际执行时间
@@ -64,18 +71,23 @@ public class Task {
     
     //预计金额（分）
     @Column(nullable=false)
+    @Min(0)
+    @NotNull
     private BigDecimal estimatedAmount;
     
     //实际发生金额（分）
+    @Min(0)
     private BigDecimal actualAmount;
     
     //项目地区
     @ManyToOne
     @JoinColumn(nullable = false)
+    @NotNull
     private Area province;
     
     @ManyToOne
     @JoinColumn(nullable = false)
+    @NotNull
     private Area city;
     
     @ManyToOne
@@ -83,11 +95,13 @@ public class Task {
     
     //具体地址
     @Column(nullable=false)
+    @NotBlank
     private String address;
     
     //创建者（雇主、客户）
     @ManyToOne
     @JoinColumn(nullable=false)
+    @NotNull
     private User employer;
     
     //接收者（工人）

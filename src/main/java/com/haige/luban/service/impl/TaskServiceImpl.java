@@ -91,8 +91,8 @@ public class TaskServiceImpl implements TaskService {
 	}
 
 	@Override
-	public Page<Task> findAllTasks(int page, int size) {
-		return taskJpaDao.findAll(PageRequest.of(page, size));
+	public Page<Task> findAllTasks(int start, int size) {
+		return taskJpaDao.findAll(PageRequest.of(start/size, size));
 	}
 
 }

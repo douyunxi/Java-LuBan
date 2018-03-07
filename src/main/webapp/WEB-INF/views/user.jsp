@@ -33,6 +33,7 @@
 	        <th>电话</th>
 	        <th>创建时间</th>
 	        <th>修改时间</th>
+	        <th>操作</th>
 	    </tr>
     </thead>
     <tbody>
@@ -47,7 +48,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<h4 class="modal-title" id="myModalLabel">新增任务</h4>
+				<h4 class="modal-title" id="myModalLabel">新增用户</h4>
 			</div>
 			<div class="modal-body">
 				<form class="form-horizontal" id="form" data-bv-feedbackicons-valid="glyphicon glyphicon-ok"
@@ -55,19 +56,29 @@
                     data-bv-feedbackicons-validating="glyphicon glyphicon-refresh">
                     <input type="hidden" id="id" name="id"/>
 					<div class="form-group">
-						<label class="col-md-3 control-label">标题:</label>
+						<label class="col-md-3 control-label">昵称:</label>
 						<div class="col-md-7">
-							<input type="text" class="form-control" id="title" name="title" placeholder="" data-bv-notempty="true" data-bv-notempty-message="必填项">
+							<input type="text" class="form-control" id="nickname" name="nickname" placeholder="" data-bv-notempty="true" data-bv-notempty-message="必填项">
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-md-3 control-label">内容:</label>
+						<label class="col-md-3 control-label">真实姓名:</label>
 						<div class="col-md-7">
-							<input type="text" class="form-control" id="content" name="content" placeholder="" data-bv-notempty="true" data-bv-notempty-message="必填项">
+							<input type="text" class="form-control" id="realName" name="realName" placeholder="" data-bv-notempty="true" data-bv-notempty-message="必填项">
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-md-3 control-label">项目地区:</label>
+						<label class="col-md-3 control-label">性别:</label>
+						<div class="col-md-7">
+							<select class="form-control" name="gender" id="gender" style="width:100%" data-bv-notempty="true" data-bv-notempty-message="必填项">
+								<option value="MAN">男</option>
+								<option value="WOMAN">女</option>
+								<option value="UNKNOW">未知</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<label class="col-md-3 control-label">地区:</label>
 						<div class="col-md-7">
 							<select class="form-control" name="province" id="province" style="width:100%" data-bv-notempty="true" data-bv-notempty-message="必填项"></select>
 							<select class="form-control" name="city" id="city" style="width:100%" data-bv-notempty="true"  data-bv-notempty-message="必填项"></select>
@@ -75,28 +86,25 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-md-3 control-label">具体地址:</label>
+						<label class="col-md-3 control-label">详细地址:</label>
 						<div class="col-md-7">
-							<input type="text" class="form-control" id="address" name="address" placeholder="" data-bv-notempty="true" data-bv-notempty-message="必填项">
+							<input type="text" class="form-control" id="address" name="address" placeholder="">
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-md-3 control-label">雇主:</label>
+						<label class="col-md-3 control-label">用户类型:</label>
 						<div class="col-md-7">
-							<select class="form-control" name="employer" id="employer" style="width:100%" data-bv-notempty="true" data-bv-notempty-message="必填项">
+							<select class="form-control" name="type" id="type" style="width:100%" data-bv-notempty="true" data-bv-notempty-message="必填项">
+								<option value="ADMIN">管理员</option>
+								<option value="EMPLOYER">雇主</option>
+								<option value="WORKER">工人</option>
 							</select>
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="col-md-3 control-label">预计金额:</label>
+						<label class="col-md-3 control-label">电话:</label>
 						<div class="col-md-7">
-							<input type="text" class="form-control" id="estimatedAmount" name="estimatedAmount" placeholder="" data-bv-notempty="true" data-bv-notempty-message="必填项">
-						</div>
-					</div>
-					<div class="form-group">
-						<label class="col-md-3 control-label">计划执行时间:</label>
-						<div class="col-md-7">
-							<input type="text" class="form-control" name="planTime" id="planTime" placeholder="" data-bv-notempty="true" data-bv-notempty-message="必填项">
+							<input type="text" class="form-control" id="mobile" name="mobile" placeholder="" data-bv-notempty="true" data-bv-notempty-message="必填项">
 						</div>
 					</div>
 				</form>
@@ -124,11 +132,15 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-				<button type="button" class="btn btn-danger" onclick="deleteTask()">确认</button>
+				<button type="button" class="btn btn-danger" onclick="deleteUser()">确认</button>
 			</div>
 		</div>
 	</div>
 </div>
+<link href="${basePath}/resources/bower_components/select2-4.0.5/dist/css/select2.min.css" rel="stylesheet" />
+<link href="${basePath}/resources/bower_components/select2-bootstrap-theme/dist/select2-bootstrap.min.css" rel="stylesheet" />
+<script src="${basePath}/resources/bower_components/select2-4.0.5/dist/js/select2.min.js"></script>
+<script src="${basePath}/resources/bower_components/select2-4.0.5/dist/js/i18n/zh-CN.js"></script>
 <script>
 $.fn.select2.defaults.set( "theme", "bootstrap" );
 var table,selectedId;
@@ -155,7 +167,7 @@ $(function(){
 			{
             	data: "avatarUrl",
             	render:function( data, type, row ){
-            		return '<img src="'+data.replace("https","http")+'" width="50"/>';
+            		return data?'<img src="'+data.replace("https","http")+'" width="50"/>':"";
             	}
 			},
             {
@@ -218,7 +230,7 @@ $(function(){
 					return 	'<btn class="btn btn-xs btn-warning" onclick="showEditModal('+ position.row +')">'+
 	                			'<i class="glyphicon glyphicon-edit icon-white"></i>'+
 	                			' 编辑'+
-	            			'</btn>'+
+	            			'</btn> '+
 							'<btn class="btn btn-xs btn-danger" onclick="showDeleteModal('+ data +')">'+
 				                '<i class="glyphicon glyphicon-trash icon-white"></i>'+
 				                ' 删除'+
@@ -258,7 +270,131 @@ $(function(){
 		findDistrict();
 	});
 });
+var findCities=function(id,callback){
+	$.ajax({
+		url: '${basePath}/admin/area/findCities',
+	  	dataType: 'json',
+	  	data:{
+    		provinceId:$('#province').val()
+    	},
+	  	success:function(data){
+	  		//数据转换
+	  		var cities=[];
+	  		for(var i=0;i<data.length;i++){
+	  			cities.push({id:data[i].id,text:data[i].text});
+	  		}
+			$('#city').select2({
+				data: cities
+			});
+			if(id){
+				$('#city').val(id).trigger("change");
+				if(callback){
+					callback();
+				}
+			}
+			else{
+				$('#city').val('').trigger('change');
+			}
+	  	}
+	});
+};
+
+var findDistrict=function(id){
+	$.ajax({
+		url: '${basePath}/admin/area/findDistrictes',
+	  	dataType: 'json',
+	  	data:{
+	  		cityId:$('#city').val()
+    	},
+	  	success:function(data){
+	  		//数据转换
+	  		var districts=[];
+	  		for(var i=0;i<data.length;i++){
+	  			districts.push({id:data[i].id,text:data[i].text});
+	  		}
+			$('#district').select2({
+				data: districts
+			});
+			if(id){
+				$('#district').val(id).trigger("change");
+			}
+			else{
+				$('#district').val('').trigger("change");
+			}
+	  	}
+	});
+};
+var showAddModal=function(){
+	$('#add_edit_modal').modal('show');
+	$('#myModalLabel').html('新增用户');
+	$('form input').val('');
+	$('#province,#city,#district,#gender,#type').val('').trigger('change');
+};
+var showEditModal=function(row){
+	var data=table.api().data()[row];
+	$('#add_edit_modal').modal('show');
+	$('#myModalLabel').html('修改用户');
+	$('#id').val(data.id);
+	$('#nickname').val(data.nickName);
+	$('#realName').val(data.realName);
+	$('#province').val(data.province.id).trigger("change").trigger("select");
+	findCities(data.city.id,function(){
+		if(data.district){
+			findDistrict(data.district.id);
+		}
+	});
 	
+	$('#address').val(data.address);
+	$('#gender').val(data.gender);
+	$('#type').val(data.type);
+	$('#mobile').val(data.mobile);
+};
+$('#add_edit_modal').on('show.bs.modal', function (e) {
+	$('#form').bootstrapValidator('validate');//验证初始化
+});
+$('#add_edit_modal').on('hidden.bs.modal', function (e) {
+	$('#form').data('bootstrapValidator').destroy();//验证状态清空
+});
+$('#addBtn').click(function() {
+    $('#form').bootstrapValidator('validate');
+    if($("#form").data('bootstrapValidator').isValid()){
+    	$.ajax({
+            //几个参数需要注意一下
+            type: "POST",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "${basePath}/admin/user/"+($("#id").val()?"update":"add"),
+            data: $('#form').serialize(),
+            success: function (result) {
+            	if(result){
+            		$("#add_edit_modal").modal('hide');
+                	table.api().ajax.reload();
+            	}
+            },
+            error : function() {
+                alert("异常！");
+            }
+        });
+    }
+});
+var showDeleteModal=function(id){
+	selectedId=id;
+	$('#delete_modal').modal('show');
+};
+var deleteUser=function(){
+	$.ajax({
+		url: '${basePath}/admin/user/delete',
+	  	dataType: 'json',
+	  	data:{
+	  		id:selectedId
+    	},
+	  	success:function(result){
+	  		if(result){
+        		$("#delete_modal").modal('hide');
+            	table.api().ajax.reload();
+        	}
+	  	}
+	});
+};
 var search=function(){
 	var ajax=table.api().ajax;
 	ajax.url("${basePath}/admin/user/query?phoneNo="+$('#phone').val()).load();

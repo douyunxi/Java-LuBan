@@ -63,12 +63,24 @@ public class UserController {
 	}
 	
 	@RequestMapping("/user/add")
-	String query(User user){
-		User newUser=userService.addUser(user);
-		if(newUser!=null && newUser.getId()!=null) {
-			
-		}
-		return "redirect:/user/query";
+	@ResponseBody
+	boolean query(User user){
+		userService.addUser(user);
+		return true;
+	}
+	
+	@RequestMapping("/user/update")
+	@ResponseBody
+	boolean update(User user){
+		userService.updateUser(user);
+		return true;
+	}
+	
+	@RequestMapping("/user/delete")
+	@ResponseBody
+	boolean delete(User user){
+		userService.deleteUser(user);
+		return true;
 	}
 	
 	@RequestMapping("/user/{id}")

@@ -32,8 +32,8 @@ public class User {
 	
 	//微信的用户唯一标识
 	@JsonIgnore
-	@Column(unique=true,nullable=false)
-	@NotNull
+	//@Column(unique=true,nullable=false)
+	//@NotNull
 	private String openId;
 
 	@JsonProperty("nickName")

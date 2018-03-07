@@ -39,6 +39,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User updateUser(User user) {
+		user.setUpdateTime(new Date());
 		return userJpaDao.saveAndFlush(user);
 	}
 

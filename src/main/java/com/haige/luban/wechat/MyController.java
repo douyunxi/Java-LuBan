@@ -1,4 +1,4 @@
-package com.haige.luban.controller;
+package com.haige.luban.wechat;
 
 import java.io.IOException;
 
@@ -18,27 +18,31 @@ import com.haige.luban.service.MessageService;
 import com.haige.luban.service.UserService;
 
 @Controller
-public class MessageController {
+@RequestMapping("/wechat")
+public class MyController {
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
-
+	
 	@Autowired
 	private UserService userService;
 	
 	@Autowired
 	private MessageService messageService;
-
 	
 	/**
-	 * 获取消息列表
+	 * 获取小程序“我的”页面的消息状态
 	 * @param session
+	 * @param code
 	 * @return
+	 * @throws JsonParseException
+	 * @throws JsonMappingException
+	 * @throws IOException
 	 */
-	@RequestMapping("/getMessages")
+	@RequestMapping("/getMyStatus")
 	@ResponseBody
-	Object getMessages(HttpSession session){
+	Object getMyStatus(HttpSession session){
 		User user=(User)session.getAttribute("user");
-		return messageService.getMessagesByReceiver(user);
+		return userService.getMyStatus(user);
 	}
 
 }

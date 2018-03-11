@@ -1,5 +1,6 @@
 package com.haige.luban.controller;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -71,7 +72,7 @@ public class UserController {
 	
 	@RequestMapping("/user/update")
 	@ResponseBody
-	boolean update(User user){
+	boolean update(User user) throws IllegalAccessException, InvocationTargetException{
 		userService.updateUser(user);
 		return true;
 	}
@@ -94,8 +95,15 @@ public class UserController {
 	
 	@RequestMapping("/user/findAllEmployer")
 	@ResponseBody
-	List<User> query(){
+	List<User> findAllEmployer(){
 		List<User> employers=userService.findAllEmployer();
 		return employers;
+	}
+	
+	@RequestMapping("/user/findAllWorker")
+	@ResponseBody
+	List<User> findAllWorker(){
+		List<User> workers=userService.findAllWorker();
+		return workers;
 	}
 }

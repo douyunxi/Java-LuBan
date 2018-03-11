@@ -17,8 +17,11 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.haige.luban.enums.EnumTaskStatus;
 
@@ -30,6 +33,8 @@ import lombok.Data;
  *
  */
 @Entity
+@DynamicInsert(true)  
+@DynamicUpdate(true)
 @Data
 public class Task {
 	
@@ -48,12 +53,12 @@ public class Task {
     private String content;
 
     //任务创建时间
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date createTime=new Date();
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    private Date createTime;
     
     //计划执行时间
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     @Column(nullable=false)
     @Future
     @NotNull
@@ -61,12 +66,12 @@ public class Task {
     
     //实际执行时间
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date buildingTime;
     
     //实际完成时间
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date finishTime;
     
     //预计金额（分）

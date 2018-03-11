@@ -45,4 +45,15 @@ public class MyController {
 		return userService.getMyStatus(user);
 	}
 
+	/**
+	 * 获取消息列表
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("/getMessages")
+	@ResponseBody
+	Object getMessages(HttpSession session){
+		User user=(User)session.getAttribute("user");
+		return messageService.getMessagesByReceiver(user);
+	}
 }

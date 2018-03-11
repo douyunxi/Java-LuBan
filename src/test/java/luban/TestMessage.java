@@ -1,7 +1,5 @@
 package luban;
 
-import java.io.IOException;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,21 +8,22 @@ import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.haige.luban.LuBanApplication;
-import com.haige.luban.dao.UserJpaDao;
 import com.haige.luban.pojo.User;
-import com.haige.luban.service.UserService;
+import com.haige.luban.service.MessageService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @TestPropertySource(locations = {"classpath:application.properties"})
 @SpringBootTest(classes =LuBanApplication.class)
-public class TestUser {
+public class TestMessage {
 	
 	@Autowired
-	private UserService userService;
+	private MessageService messageService;
+	
 	
 	@Test
-	public void getUser() throws IOException {
-		User user=userService.getUserById(Long.valueOf(2));
-		System.out.println(user);
+	public void find() {
+		User user=new User();
+		user.setId(Long.valueOf(67));
+		messageService.getMessagesByReceiver(user);
 	}
 }

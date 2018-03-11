@@ -26,7 +26,7 @@ public class TaskController {
 	 * 管理员登录后台管理系统--用户管理页面
 	 */
 	@RequestMapping("/task")
-	String user() {
+	String task() {
 		return "task";
 	}
 	

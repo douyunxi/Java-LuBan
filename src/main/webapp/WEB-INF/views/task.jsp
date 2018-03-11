@@ -245,7 +245,7 @@
 				{
 					data : "id",
 					render : function(data, type, row, position) {
-						return 	'<btn class="btn btn-xs btn-success" onclick="showDispatchModal('+ data +')">'+
+						return 	'<btn class="btn btn-xs btn-success" onclick="showDispatchModal('+ position.row +')">'+
 		                			'<i class="glyphicon glyphicon-share icon-white"></i>'+
 		                			' 派单'+
 		            			'</btn>'+
@@ -332,6 +332,21 @@
 					data: employers
 				});
 				$('#employer').val('').trigger('change');
+		  	}
+		});
+		
+		$.ajax({
+			url: '${basePath}/admin/user/findAllWorker',
+		  	dataType: 'json',
+		  	success:function(data){
+		  		//数据转换
+		  		for(var i=0;i<data.length;i++){
+		  			workers.push({id:data[i].id,text:data[i].realName});
+		  		}
+				$('#worker').select2({
+					data: workers
+				});
+				$('#worker').val('').trigger('change');
 		  	}
 		});
 		
@@ -470,17 +485,24 @@
             });
         }
     });
-	var showDispatchModal=function(id){
-		selectedId=id;
+	var showDispatchModal=function(row){
+		var data=table.api().data()[row];
+		selectedId=data.id;
 		$('#dispatch_modal').modal('show');
-		$('#worker').val('').trigger("change");
+		if(data.worker){
+			$('#worker').val(data.worker.id).trigger("change");
+		}
+		else{
+			$('#worker').val('').trigger("change");
+		}
 	};
 	var dispatchTask=function(){
 		$.ajax({
-			url: '${basePath}/admin/task/dispatch',
+			url: '${basePath}/admin/task/update',
 		  	dataType: 'json',
 		  	data:{
-		  		id:selectedId
+		  		id:selectedId,
+		  		worker:$('#worker').val()
 	    	},
 		  	success:function(result){
 		  		if(result){

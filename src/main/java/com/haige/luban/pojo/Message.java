@@ -1,12 +1,27 @@
 package com.haige.luban.pojo;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.haige.luban.enums.EnumMessagePublishStatus;
 
 import lombok.Data;
 
@@ -19,26 +34,40 @@ public class Message {
 	private Long id;
 
 	//消息标题
+	@Column(nullable=false)
+	@NotBlank
     private String title;
 
     //消息内容
+	@Column(nullable=false)
+	@NotBlank
     private String content;
 
     //消息创建时间
-    private Date createTime=new Date();
+	@Column(nullable=false)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    private Date createTime;
     
     //消息创建者
     @ManyToOne
     private User createUser;
     
-    //消息类型：1通知消息，2任务
-    private Integer type;
+    //消息状态：0未发布，1已发布
+    @Enumerated(EnumType.ORDINAL)
+    @Column(nullable=false)
+    @NotNull
+    private EnumMessagePublishStatus publishStatus;
     
-    //消息接收者：空为全体人员，否则为具体人
-    @ManyToOne
-    private User receiver;
+    //消息发布时间
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    private Date publishTime;
     
-    //消息状态：0.未读，1.为已读或接收，2.拒绝
-    private Integer status=0;
+    //消息接收者,为了保存消息是否被接收等状态，选择用中间表保存
+    @JsonIgnore
+    @OneToMany(mappedBy="message",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+    private Set<UserMessageRelation> userMessageRelation=new HashSet<UserMessageRelation>();
+    
+    //@ManyToMany
+    //private Set<User> receivers= new HashSet<User>();
     
 }

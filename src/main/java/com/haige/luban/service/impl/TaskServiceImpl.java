@@ -1,5 +1,6 @@
 package com.haige.luban.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import com.haige.luban.enums.EnumTaskStatus;
 import com.haige.luban.pojo.Task;
 import com.haige.luban.pojo.User;
 import com.haige.luban.service.TaskService;
+import com.haige.luban.util.UpdateUtil;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -22,6 +24,7 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public Task addTask(Task task) {
 		task.setStatus(EnumTaskStatus.NO_START);
+		task.setCreateTime(new Date());
 		return taskJpaDao.save(task);
 	}
 
@@ -32,7 +35,9 @@ public class TaskServiceImpl implements TaskService {
 
 	@Override
 	public Task updateTask(Task task) {
-		return taskJpaDao.saveAndFlush(task);
+		Task oldTask=taskJpaDao.getOne(task.getId());
+		UpdateUtil.copyNonNullProperties(task, oldTask);
+		return taskJpaDao.saveAndFlush(oldTask);
 	}
 
 	@Override

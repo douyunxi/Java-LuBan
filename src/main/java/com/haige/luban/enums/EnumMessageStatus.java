@@ -1,19 +1,19 @@
 package com.haige.luban.enums;
 
 /**
- * 性别类型枚举
+ * 通知状态枚举
  * @author linwei
  *
  */
-public enum EnumGenderType {
+public enum EnumMessageStatus {
 	
-	UNKNOW(0,"未知"),MAN(1,"男"),WOMAN(2,"女");
+	UNREAD(0,"未读"),READ(1,"已读");
 	
 	private Integer code;
 	
 	private String desc;
 	
-	private EnumGenderType(Integer code, String desc) {
+	private EnumMessageStatus(Integer code, String desc) {
 		this.code = code;
 		this.desc = desc;
 	}
@@ -35,9 +35,9 @@ public enum EnumGenderType {
 	}
 	
 	public static String getDesc(Integer code){
-		for(EnumGenderType genderType : EnumGenderType.values()){
-			if(genderType.getCode().equals(code)){
-				return genderType.getDesc();
+		for(EnumMessageStatus messageStatus : EnumMessageStatus.values()){
+			if(messageStatus.getCode().equals(code)){
+				return messageStatus.getDesc();
 			}
 		}
 		return null;

@@ -13,6 +13,7 @@ import com.haige.luban.bo.MyStatus;
 import com.haige.luban.dao.UserMessageRelationJpaDao;
 import com.haige.luban.dao.TaskJpaDao;
 import com.haige.luban.dao.UserJpaDao;
+import com.haige.luban.enums.EnumMessagePublishStatus;
 import com.haige.luban.enums.EnumMessageStatus;
 import com.haige.luban.enums.EnumTaskStatus;
 import com.haige.luban.enums.EnumUserType;
@@ -72,7 +73,7 @@ public class UserServiceImpl implements UserService {
 	public MyStatus getMyStatus(User user) {
 		MyStatus myStatus=new MyStatus();
 		if(user!=null) {
-			myStatus.setMessages(userMessageRelationJpaDao.countByUserAndStatus(user, EnumMessageStatus.UNREAD));
+			myStatus.setMessages(userMessageRelationJpaDao.countByUserAndStatusAndMessage_PublishStatus(user, EnumMessageStatus.UNREAD,EnumMessagePublishStatus.PUBLISHED));
 			Long taskReceiptCount=taskJpaDao.countByWorkerAndStatus(user, EnumTaskStatus.RECEIPT);
 			Long taskProcessingCount=taskJpaDao.countByWorkerAndStatus(user, EnumTaskStatus.PROCESSING);
 			//未完成=已接单+进行中

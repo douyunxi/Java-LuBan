@@ -131,12 +131,10 @@ public class MessageServiceImpl implements MessageService {
 	@Override
 	public List<Message> getMessagesByReceiver(User user) {
 		List<Message> messages=new LinkedList<Message>();
-		List<UserMessageRelation> userMessageRelations=userMessageRelationJpaDao.findByUser(user);
+		List<UserMessageRelation> userMessageRelations=userMessageRelationJpaDao.findByUserAndMessage_PublishStatus(user, EnumMessagePublishStatus.PUBLISHED);
 		for(UserMessageRelation relation:userMessageRelations) {
 			Message message=relation.getMessage();
-			if(message.getPublishStatus().equals(EnumMessagePublishStatus.PUBLISHED)) {
-				messages.add(message);
-			}
+			messages.add(message);
 		}
 		return messages;
 	}

@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.haige</groupId>
 	<artifactId>luban</artifactId>
-	<!-- <packaging>war</packaging> -->
+	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>luban Maven Webapp</name>
 	<url>http://maven.apache.org</url>
@@ -17,6 +17,13 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+			<!-- 移除嵌入式tomcat插件 -->
+			<exclusions>  
+               <exclusion>  
+                   <groupId>org.springframework.boot</groupId>  
+                   <artifactId>spring-boot-starter-tomcat</artifactId>  
+               </exclusion>  
+           	</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -78,12 +85,13 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
+			<scope>provided</scope>
 		</dependency>
 		<!--添加对jsp的支持 -->
         <dependency>
             <groupId>org.apache.tomcat.embed</groupId>
             <artifactId>tomcat-embed-jasper</artifactId>
-            <!-- <scope>provided</scope> -->
+            <scope>provided</scope>
         </dependency>
         <!-- servlet 依赖 -->
 		<dependency>
@@ -101,16 +109,6 @@
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
 	</dependencies>
-	<repositories>
-		<repository>
-			<id>spring-milestones</id>
-			<name>Spring Milestones</name>
-			<url>https://repo.spring.io/libs-milestone</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-		</repository>
-	</repositories>
 	<build>
 		<finalName>luban</finalName>
 		<plugins>

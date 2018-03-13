@@ -10,7 +10,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Merchant Back End</title>
+    <title>LuBan Back End</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- The styles -->
@@ -58,7 +58,7 @@
 	                <span class="icon-bar"></span>
 	                <span class="icon-bar"></span>
 	            </button>
-	            <a class="navbar-brand" href="${basePath}/index"> <img alt="Logo" src="${basePath}/resources/img/logo.png" class="hidden-xs"/></a>
+	            <a class="navbar-brand" href="${basePath}/index"> <span style="margin-left:5%;font-size:28px;">LuBan</span><%-- <img alt="Logo" src="${basePath}/resources/img/logo.png" class="hidden-xs"/> --%></a>
 	
 	            <!-- user dropdown starts -->
 	            <div class="btn-group pull-right">
@@ -145,7 +145,7 @@
 		    <hr>
 		
 		    <footer class="row">
-		        <p class="col-md-12 col-sm-12 col-xs-12 text-center copyright">&copy; <a href="http://www.ucfpay.com" target="_blank">UCF-PAY</a> 2012 - 2017</p>
+		        <p class="col-md-12 col-sm-12 col-xs-12 text-center copyright"><!-- &copy;  -->版权为 ©2017~2018 上海海戈投资发展有限公司</p>
 		    </footer>
 		
 		</div><!--/.fluid-container-->

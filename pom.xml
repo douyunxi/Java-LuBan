@@ -85,7 +85,7 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
-			<scope>provided</scope>
+			<!-- <scope>provided</scope> -->
 		</dependency>
 		<!--添加对jsp的支持 -->
         <dependency>

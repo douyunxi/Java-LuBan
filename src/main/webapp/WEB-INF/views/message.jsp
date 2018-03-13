@@ -4,7 +4,7 @@
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <c:set var="basePath" value="${pageContext.request.contextPath }" scope="application"/>
-<form class="form-horizontal alert alert-info">
+<!-- <form class="form-horizontal alert alert-info">
 	<div class="form-group">
 		<label class="col-sm-2 control-label">Phone No.:</label>
 		<div class="col-sm-3">
@@ -15,7 +15,7 @@
 			<button class="btn btn-default">Reset</button>
 		</div>
 	</div>
-</form>
+</form> -->
 <div class="col-md-12">
 	<button class="btn btn-info pull-right" onclick="showAddModal()">新增</button>
 </div>

@@ -234,8 +234,14 @@
 						switch (data) {
 							case "NO_START":
 								status = '<span class="label label-default label-info">未开始</span>';break;
+							case "DISPATCHED":
+								status = '<span class="label label-default label-primary">已派单</span>';break;
+							case "REJECT":
+								status = '<span class="label label-default label-danger">被拒单</span>';break;
+							case "RECEIPT":
+								status = '<span class="label label-default label-muted">已接单</span>';break;
 							case "PROCESSING":
-								status = '<span class="label label-default label-danger">施工中</span>';break;
+								status = '<span class="label label-default label-warning">施工中</span>';break;
 							case "FINISHED":
 								status = '<span class="label label-default label-success">已完成</span>';break;
 						}
@@ -498,7 +504,7 @@
 	};
 	var dispatchTask=function(){
 		$.ajax({
-			url: '${basePath}/admin/task/update',
+			url: '${basePath}/admin/task/dispatch',
 		  	dataType: 'json',
 		  	data:{
 		  		id:selectedId,

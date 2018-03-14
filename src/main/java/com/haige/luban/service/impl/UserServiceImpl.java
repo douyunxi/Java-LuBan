@@ -73,12 +73,17 @@ public class UserServiceImpl implements UserService {
 	public MyStatus getMyStatus(User user) {
 		MyStatus myStatus=new MyStatus();
 		if(user!=null) {
-			myStatus.setMessages(userMessageRelationJpaDao.countByUserAndStatusAndMessage_PublishStatus(user, EnumMessageStatus.UNREAD,EnumMessagePublishStatus.PUBLISHED));
+			//获取用户未读通知数
+			Long messagesCount=userMessageRelationJpaDao.countByUserAndStatusAndMessage_PublishStatus(user, EnumMessageStatus.UNREAD,EnumMessagePublishStatus.PUBLISHED);
+			//获取用户未接任务数
+			Long tasksCount=taskJpaDao.countByWorkerAndStatus(user, EnumTaskStatus.DISPATCHED);
+			myStatus.setMessages(messagesCount+tasksCount);
+			//未完成=已接单+进行中
 			Long taskReceiptCount=taskJpaDao.countByWorkerAndStatus(user, EnumTaskStatus.RECEIPT);
 			Long taskProcessingCount=taskJpaDao.countByWorkerAndStatus(user, EnumTaskStatus.PROCESSING);
-			//未完成=已接单+进行中
 			Long taskUnfinishiedCount=taskReceiptCount+taskProcessingCount;
 			myStatus.setTasks(taskUnfinishiedCount);
+			//未入账=已接单+审核中
 			//myStatus.setSalaries(salaries);
 		}
 		return myStatus;

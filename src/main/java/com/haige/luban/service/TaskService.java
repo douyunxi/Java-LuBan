@@ -15,19 +15,25 @@ public interface TaskService {
 	
 	Task updateTask(Task task);
 	
+	Task dispatch(Task task);
+	
+	Task reject(Task task);
+	
+	Task receipt(Task task);
+	
 	Task getTaskById(Long id);
 	
 	List<Task> searchTask(Task task);
 	
 	/**
-	 * 获得未完成的任务
+	 * 获得未开始的任务
 	 * @param user
 	 * @return
 	 */
 	List<Task> getNoStartTasks(User user);
 	
 	/**
-	 * 分页获得未完成的任务
+	 * 分页获得未开始的任务
 	 * @param user
 	 * @param page
 	 * @param size
@@ -36,7 +42,21 @@ public interface TaskService {
 	Page<Task> getNoStartTasks(User user,int page,int size);
 	
 	/**
-	 * 分页获得所有未完成的任务
+	 * 获得已向某人派发的任务
+	 * @param user
+	 * @return
+	 */
+	List<Task> getDispatchedTasks(User user);
+	
+	/**
+	 * 获得已向某人派发的任务数
+	 * @param user
+	 * @return
+	 */
+	Long countDispatchedTask(User user);
+	
+	/**
+	 * 分页获得所有未开始的任务
 	 * @param page
 	 * @param size
 	 * @return
@@ -44,7 +64,7 @@ public interface TaskService {
 	Page<Task> findAllNoStartTasks(int page,int size);
 	
 	/**
-	 * 获得未完成的任务数
+	 * 获得未开始的任务数
 	 * @param user
 	 * @return
 	 */

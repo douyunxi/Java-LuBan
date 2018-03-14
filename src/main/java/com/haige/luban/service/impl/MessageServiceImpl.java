@@ -116,6 +116,13 @@ public class MessageServiceImpl implements MessageService {
 		oldMessage.setPublishStatus(EnumMessagePublishStatus.PUBLISHED);
 		return messageJpaDao.saveAndFlush(oldMessage);
 	}
+	
+	@Override
+	public void readMessage(User user,Message message) {
+		UserMessageRelation relation=userMessageRelationJpaDao.findByUserAndMessage(user, message);
+		relation.setStatus(EnumMessageStatus.READ);
+		userMessageRelationJpaDao.saveAndFlush(relation);
+	}
 
 	@Override
 	public Message getMessageById(Long id) {

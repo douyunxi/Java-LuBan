@@ -17,6 +17,8 @@ public interface MessageService {
 	
 	Message publishMessage(Message message);
 	
+	void readMessage(User user,Message message);
+	
 	Message getMessageById(Long id);
 	
 	List<Message> searchMessage(Message message);

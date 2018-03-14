@@ -15,6 +15,14 @@ import com.haige.luban.pojo.UserMessageRelation;
 
 public interface UserMessageRelationJpaDao extends JpaRepository<UserMessageRelation, Long>,JpaSpecificationExecutor<UserMessageRelation> {
 	/**
+	 * 根据用户和消息查找唯一关系
+	 * @param user
+	 * @param message
+	 * @return
+	 */
+	UserMessageRelation findByUserAndMessage(User user,Message message);
+	
+	/**
 	 * 根据用户查找所有已发布的消息
 	 * @param receiver
 	 * @param status

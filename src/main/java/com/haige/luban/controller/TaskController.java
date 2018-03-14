@@ -56,6 +56,13 @@ public class TaskController {
 		return true;
 	}
 	
+	@RequestMapping("/task/dispatch")
+	@ResponseBody
+	boolean dispatch(Task task){
+		taskService.dispatch(task);
+		return true;
+	}
+	
 	@RequestMapping("/task/delete")
 	@ResponseBody
 	boolean delete(Task task){

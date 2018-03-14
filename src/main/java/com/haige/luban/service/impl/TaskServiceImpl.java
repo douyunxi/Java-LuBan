@@ -39,6 +39,30 @@ public class TaskServiceImpl implements TaskService {
 		UpdateUtil.copyNonNullProperties(task, oldTask);
 		return taskJpaDao.saveAndFlush(oldTask);
 	}
+	
+	@Override
+	public Task dispatch(Task task) {
+		Task oldTask=taskJpaDao.getOne(task.getId());
+		UpdateUtil.copyNonNullProperties(task, oldTask);
+		oldTask.setStatus(EnumTaskStatus.DISPATCHED);
+		return taskJpaDao.saveAndFlush(oldTask);
+	}
+	
+	@Override
+	public Task reject(Task task) {
+		Task oldTask=taskJpaDao.getOne(task.getId());
+		UpdateUtil.copyNonNullProperties(task, oldTask);
+		oldTask.setStatus(EnumTaskStatus.REJECT);
+		return taskJpaDao.saveAndFlush(oldTask);
+	}
+	
+	@Override
+	public Task receipt(Task task) {
+		Task oldTask=taskJpaDao.getOne(task.getId());
+		UpdateUtil.copyNonNullProperties(task, oldTask);
+		oldTask.setStatus(EnumTaskStatus.RECEIPT);
+		return taskJpaDao.saveAndFlush(oldTask);
+	}
 
 	@Override
 	public Task getTaskById(Long id) {
@@ -98,6 +122,16 @@ public class TaskServiceImpl implements TaskService {
 	@Override
 	public Page<Task> findAllTasks(int start, int size) {
 		return taskJpaDao.findAll(PageRequest.of(start/size, size));
+	}
+
+	@Override
+	public List<Task> getDispatchedTasks(User user) {
+		return taskJpaDao.findByWorkerAndStatus(user,EnumTaskStatus.DISPATCHED);
+	}
+
+	@Override
+	public Long countDispatchedTask(User user) {
+		return taskJpaDao.countByWorkerAndStatus(user,EnumTaskStatus.DISPATCHED);
 	}
 
 }

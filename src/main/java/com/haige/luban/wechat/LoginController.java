@@ -81,5 +81,12 @@ public class LoginController {
 		}
 		return success;
 	}
+	
+	@RequestMapping("/getUserInfo")
+	@ResponseBody
+	User query(HttpSession session){
+		User user=(User)session.getAttribute("user");
+		return user;
+	}
 
 }

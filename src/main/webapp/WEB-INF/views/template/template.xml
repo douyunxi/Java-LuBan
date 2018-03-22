@@ -5,6 +5,7 @@
 
 <tiles-definitions>
 	
+	<definition name="monitorTemplateLayout" template="/WEB-INF/views/template/monitorTemplate.jsp" />
 	<definition name="loginTemplateLayout" template="/WEB-INF/views/template/loginTemplate.jsp" />
 	<definition name="indexTemplateLayout" template="/WEB-INF/views/template/indexTemplate.jsp" />
 	

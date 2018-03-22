@@ -5,7 +5,7 @@
 
 <tiles-definitions>
 	<!-- 顺序很重要，当匹配到第一个后不再向后查找 -->
-	
+	<definition name="monitor" extends="monitorTemplateLayout"></definition>
 	<definition name="login" extends="loginTemplateLayout">
 		<put-attribute name="action" value="login.html" />  
 	</definition>

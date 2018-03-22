@@ -18,6 +18,7 @@
 
     <link href='${basePath}/resources/css/jquery.dataTables.min.css' rel='stylesheet'>
 	<link href='${basePath}/resources/css/dataTables.bootstrap.min.css' rel='stylesheet'>
+    <link href='${basePath}/resources/css/animate.min.css' rel='stylesheet'>
     <link href="${basePath}/resources/css/app.css" rel="stylesheet">
     <link href='${basePath}/resources/bower_components/bootstrapvalidator/dist/css/bootstrapValidator.min.css' rel='stylesheet'>
     <link href="${basePath}/resources/bower_components/bootstrap-datetimepicker-3.1.3/css/bootstrap-datetimepicker.min.css" rel="stylesheet" />
@@ -33,7 +34,7 @@
     <link href='${basePath}/resources/css/elfinder.theme.css' rel='stylesheet'>
     <link href='${basePath}/resources/css/jquery.iphone.toggle.css' rel='stylesheet'>
     <link href='${basePath}/resources/css/uploadify.css' rel='stylesheet'>
-    <link href='${basePath}/resources/css/animate.min.css' rel='stylesheet'> --%>
+     --%>
 
     <!-- jQuery -->
     <script src="${basePath}/resources/bower_components/jquery/jquery.min.js"></script>

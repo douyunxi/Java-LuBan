@@ -1,6 +1,7 @@
 package com.haige.luban.wechat;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 import javax.servlet.http.HttpSession;
 
@@ -87,6 +88,16 @@ public class LoginController {
 	User query(HttpSession session){
 		User user=(User)session.getAttribute("user");
 		return user;
+	}
+	
+	@RequestMapping("/updateUserInfo")
+	@ResponseBody
+	boolean update(HttpSession session,User user) throws IllegalAccessException, InvocationTargetException{
+		Long userId=((User)session.getAttribute("user")).getId();
+		user.setId(userId);
+		User newUser=userService.updateUser(user);
+		session.setAttribute("user",newUser);
+		return true;
 	}
 
 }

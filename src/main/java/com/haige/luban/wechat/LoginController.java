@@ -78,6 +78,7 @@ public class LoginController {
 		}
 		User createdUser=userService.addUser(user);
 		if(createdUser!=null) {
+			session.setAttribute("user",createdUser);
 			success=true;
 		}
 		return success;

@@ -9,9 +9,9 @@
         <logger name="com.haige.luban" level="debug">
             <AppenderRef ref="Console"/>
         </logger>
-        <Root level="info">
+        <!-- <Root level="info">
             <AppenderRef ref="Console"/>
-        </Root>
+        </Root> -->
     </Loggers>
 </Configuration>
 

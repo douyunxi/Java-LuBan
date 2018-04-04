@@ -15,6 +15,7 @@
                 <li><a class="ajax-link" href="${basePath}/admin/task"><i class="glyphicon"></i><span> 任务管理</span></a></li>
                 <li><a class="ajax-link" href="${basePath}/admin/salary"><i class="glyphicon"></i><span> 工资管理</span></a></li>
                 <li><a class="ajax-link" href="${basePath}/admin/message"><i class="glyphicon"></i><span> 通知/消息管理</span></a></li>
+                <li><a class="ajax-link" href="https://mpkf.weixin.qq.com/cgi-bin/kfindex?token=1875813560" target="_blank"><i class="glyphicon"></i><span> 在线客服</span></a></li>
             </ul>
         </div>
     </div>

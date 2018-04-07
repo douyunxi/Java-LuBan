@@ -2,16 +2,21 @@ package com.haige.luban.pojo;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
@@ -23,6 +28,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.haige.luban.enums.EnumTaskStatus;
 
 import lombok.Data;
@@ -36,6 +43,7 @@ import lombok.Data;
 @DynamicInsert(true)  
 @DynamicUpdate(true)
 @Data
+@JsonIgnoreProperties(value = {"handler","hibernateLazyInitializer","fieldHandler"})
 public class Task {
 	
 	@Id
@@ -110,11 +118,16 @@ public class Task {
     private User employer;
     
     //接收者（工人）
-    @ManyToOne
-    private User worker;
+    //@ManyToOne
+    //private User worker;
     
-    //施工状态：0.未开始,1.已派单,2.已拒单,3.已接单,4.进行中,5.已完成
+    //施工状态：0.未开始,1.已派单,2.已拒单,3.已接单,4.进行中,5.审核中,6.已完成
     @Enumerated(EnumType.ORDINAL)
     private EnumTaskStatus status;
+    
+    //任务接收者（工人）,为了保存是否被接单等状态，选择用中间表保存
+    @JsonIgnore
+    @OneToMany(mappedBy="task",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+    private Set<UserTaskRelation> userTaskRelation=new HashSet<UserTaskRelation>();
     
 }

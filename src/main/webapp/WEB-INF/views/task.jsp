@@ -23,7 +23,7 @@
 	        <th>实际执行时间</th>
 	        <th>实际完成时间</th>
 	        <th>实际发生金额</th>
-	        <th>施工状态</th>
+	        <th>状态</th>
 	        <th>操作</th>
 	    </tr>
     </thead>
@@ -116,7 +116,7 @@
 					<div class="form-group">
 						<label class="col-md-3 control-label">分派给:</label>
 						<div class="col-md-7">
-							<select class="form-control" name="worker" id="worker" style="width:100%" data-bv-notempty="true" data-bv-notempty-message="必填项">
+							<select class="form-control" name="worker" id="worker" style="width:100%" data-bv-notempty="true" data-bv-notempty-message="必填项" multiple>
 							</select>
 						</div>
 					</div>
@@ -215,7 +215,7 @@
 				{
 					data : "worker",
 					render : function(data, type, row) {
-						return data?('<a href="${basePath}/admin/user/'+ data.id +'">'+ data.realName +'</a>'):'';
+						return '<a href="${basePath}/admin/task/dispatchedDetail/'+ row.id +'">查看 </a>';
 					}
 				},
 				{
@@ -230,18 +230,22 @@
 				{
 					data : "status",
 					render : function(data, type, row) {
-						var status = "未开始";
+						var status = "发生异常";
 						switch (data) {
 							case "NO_START":
-								status = '<span class="label label-default label-info">未开始</span>';break;
+								status = '<span class="label label-default label-default">未开始</span>';break;
 							case "DISPATCHED":
 								status = '<span class="label label-default label-primary">已派单</span>';break;
-							case "REJECT":
-								status = '<span class="label label-default label-danger">被拒单</span>';break;
-							case "RECEIPT":
-								status = '<span class="label label-default label-muted">已接单</span>';break;
+							case "RECEIPT_PART":
+								status = '<span class="label label-default label-muted">部分接单</span>';break;
+							case "REJECT_PART":
+								status = '<span class="label label-default label-danger">需重派单</span>';break;
+							case "RECEIPT_ALL":
+								status = '<span class="label label-default label-success">全部接单</span>';break;
 							case "PROCESSING":
 								status = '<span class="label label-default label-warning">施工中</span>';break;
+							case "CHECKING":
+								status = '<span class="label label-default label-info">验收中</span>';break;
 							case "FINISHED":
 								status = '<span class="label label-default label-success">已完成</span>';break;
 						}

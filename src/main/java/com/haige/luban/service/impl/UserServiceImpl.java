@@ -8,14 +8,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.haige.luban.bo.MyStatus;
 import com.haige.luban.dao.UserMessageRelationJpaDao;
-import com.haige.luban.dao.TaskJpaDao;
+import com.haige.luban.dao.UserTaskRelationJpaDao;
 import com.haige.luban.dao.UserJpaDao;
 import com.haige.luban.enums.EnumMessagePublishStatus;
 import com.haige.luban.enums.EnumMessageStatus;
-import com.haige.luban.enums.EnumTaskStatus;
+import com.haige.luban.enums.EnumTaskReceiveStatus;
 import com.haige.luban.enums.EnumUserType;
 import com.haige.luban.pojo.User;
 import com.haige.luban.service.UserService;
@@ -31,7 +32,7 @@ public class UserServiceImpl implements UserService {
 	private UserMessageRelationJpaDao userMessageRelationJpaDao;
 	
 	@Autowired
-	private TaskJpaDao taskJpaDao;
+	private UserTaskRelationJpaDao userTaskRelationJpaDao;
 
 	@Override
 	public User addUser(User user) {
@@ -42,7 +43,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
+	@Transactional
 	public void deleteUser(User user) {
+		userMessageRelationJpaDao.deleteByUserId(user.getId());
+		userTaskRelationJpaDao.deleteByUserId(user.getId());
 		userJpaDao.delete(user);
 	}
 
@@ -76,11 +80,11 @@ public class UserServiceImpl implements UserService {
 			//获取用户未读通知数
 			Long messagesCount=userMessageRelationJpaDao.countByUserAndStatusAndMessage_PublishStatus(user, EnumMessageStatus.UNREAD,EnumMessagePublishStatus.PUBLISHED);
 			//获取用户未接任务数
-			Long tasksCount=taskJpaDao.countByWorkerAndStatus(user, EnumTaskStatus.DISPATCHED);
+			Long tasksCount=userTaskRelationJpaDao.countByUserAndStatus(user, EnumTaskReceiveStatus.UNTREATED);
 			myStatus.setMessages(messagesCount+tasksCount);
 			//未完成=已接单+进行中
-			Long taskReceiptCount=taskJpaDao.countByWorkerAndStatus(user, EnumTaskStatus.RECEIPT);
-			Long taskProcessingCount=taskJpaDao.countByWorkerAndStatus(user, EnumTaskStatus.PROCESSING);
+			Long taskReceiptCount=userTaskRelationJpaDao.countByUserAndStatus(user, EnumTaskReceiveStatus.RECEIPT);
+			Long taskProcessingCount=userTaskRelationJpaDao.countByUserAndStatus(user,EnumTaskReceiveStatus.PROCESSING);//TODO 可以优化成1个“or”SQL语句
 			Long taskUnfinishiedCount=taskReceiptCount+taskProcessingCount;
 			myStatus.setTasks(taskUnfinishiedCount);
 			//未入账=已接单+审核中

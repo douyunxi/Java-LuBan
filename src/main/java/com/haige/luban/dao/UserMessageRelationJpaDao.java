@@ -67,7 +67,19 @@ public interface UserMessageRelationJpaDao extends JpaRepository<UserMessageRela
 	 */
 	Long countByMessageAndStatus(Message message,EnumMessageStatus status);
 	
+	/**
+	 * 根据消息Id删除所有关系
+	 * @param userId
+	 */
 	@Modifying
     @Query("delete from UserMessageRelation r where r.message.id = ?1")
 	void deleteByMessageId(Long messageId);
+	
+	/**
+	 * 根据用户Id删除所有关系
+	 * @param userId
+	 */
+	@Modifying
+	@Query("delete from UserMessageRelation r where r.user.id = ?1")
+	void deleteByUserId(Long userId);
 }

@@ -23,7 +23,6 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -31,6 +30,7 @@ import com.haige.luban.enums.EnumGenderType;
 import com.haige.luban.enums.EnumUserType;
 
 import lombok.Data;
+import lombok.ToString;
 
 @Entity
 @DynamicInsert(true)  
@@ -112,4 +112,8 @@ public class User {
     @JsonIgnore
     @OneToMany(mappedBy="user",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
     private Set<UserMessageRelation> userMessageRelation=new HashSet<UserMessageRelation>();
+    
+    @JsonIgnore
+    @OneToMany(mappedBy="user",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+    private Set<UserTaskRelation> userTaskRelation=new HashSet<UserTaskRelation>();
 }

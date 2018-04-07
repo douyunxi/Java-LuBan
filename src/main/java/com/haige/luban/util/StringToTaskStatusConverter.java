@@ -16,14 +16,20 @@ public class StringToTaskStatusConverter implements Converter<String, EnumTaskSt
 		else if(gender.equalsIgnoreCase("DISPATCHED")) {
 			return EnumTaskStatus.DISPATCHED;
 		}
-		else if(gender.equalsIgnoreCase("REJECT")) {
-			return EnumTaskStatus.REJECT;
+		else if(gender.equalsIgnoreCase("RECEIPT_PART")) {
+			return EnumTaskStatus.RECEIPT_PART;
 		}
-		else if(gender.equalsIgnoreCase("RECEIPT")) {
-			return EnumTaskStatus.RECEIPT;
+		else if(gender.equalsIgnoreCase("REJECT_PART")) {
+			return EnumTaskStatus.REJECT_PART;
+		}
+		else if(gender.equalsIgnoreCase("RECEIPT_ALL")) {
+			return EnumTaskStatus.RECEIPT_ALL;
 		}
 		else if(gender.equalsIgnoreCase("PROCESSING")) {
 			return EnumTaskStatus.PROCESSING;
+		}
+		else if(gender.equalsIgnoreCase("CHECKING")) {
+			return EnumTaskStatus.CHECKING;
 		}
 		else{
 			return EnumTaskStatus.FINISHED;

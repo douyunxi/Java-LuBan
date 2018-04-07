@@ -10,12 +10,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.haige.luban.bo.MyTasks;
 import com.haige.luban.bo.WechatMessage;
+import com.haige.luban.enums.EnumTaskReceiveStatus;
 import com.haige.luban.pojo.Message;
 import com.haige.luban.pojo.Task;
 import com.haige.luban.pojo.User;
@@ -86,22 +89,13 @@ public class MyController {
 		}
 		return wechatMessages;
 	}
-	
-	@RequestMapping("/task/reject")
-	@ResponseBody
-	boolean reject(Task task){
-		taskService.reject(task);
-		return true;
-	}
-	
-	@RequestMapping("/task/receipt")
-	@ResponseBody
-	boolean receipt(Task task){
-		taskService.receipt(task);
-		return true;
-	}
-	
 
+	/**
+	 * 用户读取消息
+	 * @param session
+	 * @param message
+	 * @return
+	 */
 	@RequestMapping("/message/read")
 	@ResponseBody
 	boolean read(HttpSession session,Message message){
@@ -109,4 +103,59 @@ public class MyController {
 		messageService.readMessage(user,message);;
 		return true;
 	}
+	
+	/**
+	 * 工人拒单
+	 * @param session
+	 * @param task
+	 * @return
+	 */
+	@RequestMapping("/task/reject")
+	@ResponseBody
+	boolean reject(HttpSession session,Task task){
+		User worker=(User)session.getAttribute("user");
+		taskService.reject(task,worker);
+		return true;
+	}
+	
+	/**
+	 * 工人接单
+	 * @param task
+	 * @return
+	 */
+	@RequestMapping("/task/receipt")
+	@ResponseBody
+	boolean receipt(HttpSession session,Task task){
+		User worker=(User)session.getAttribute("user");
+		taskService.receipt(task,worker);
+		return true;
+	}
+	
+	/**
+	 * 工人查看任务详情
+	 * @param task
+	 * @return
+	 */
+	@RequestMapping("/task/{id}")
+	@ResponseBody
+	Task getTask(@PathVariable Long id){
+		Task task=taskService.getTaskById(id);
+		return task;
+	}
+	
+	/**
+	 * 工人读取任务单
+	 * @param task
+	 * @return
+	 */
+	@RequestMapping("/getTasks")
+	@ResponseBody
+	MyTasks getTasks(HttpSession session){
+		User worker=(User)session.getAttribute("user");
+		MyTasks myTask=new MyTasks();
+		myTask.setUnfinishedTask(taskService.findTaskByWorkerAndStauts(worker,EnumTaskReceiveStatus.RECEIPT));
+		myTask.setFinishedTask(taskService.findTaskByWorkerAndStauts(worker,EnumTaskReceiveStatus.FINISHED));
+		return myTask;
+	}
+	
 }

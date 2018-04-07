@@ -128,7 +128,7 @@
 				<h4 class="modal-title" id="myModalLabel">删除</h4>
 			</div>
 			<div class="modal-body">
-				确认删除这一条任务吗？
+				确认删除这个用户吗，删除此用户将会同时删除此用户关联的消息，任务等记录？
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

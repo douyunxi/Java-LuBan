@@ -30,7 +30,6 @@ import com.haige.luban.enums.EnumGenderType;
 import com.haige.luban.enums.EnumUserType;
 
 import lombok.Data;
-import lombok.ToString;
 
 @Entity
 @DynamicInsert(true)  
@@ -108,6 +107,21 @@ public class User {
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private Date updateTime;
+    
+    //是否通过实名认证
+    private Boolean certification;
+    
+    //身份证正面图片保存地址
+    @JsonIgnore
+    private String idCardFrontPath;
+    
+    //身份证反面图片保存地址
+    @JsonIgnore
+    private String idCardBackPath;
+    
+    //手持身份证图片保存地址
+    @JsonIgnore
+    private String idCardWithPersonPath;
     
     @JsonIgnore
     @OneToMany(mappedBy="user",cascade=CascadeType.ALL,fetch=FetchType.LAZY)

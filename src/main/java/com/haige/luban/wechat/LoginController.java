@@ -1,16 +1,22 @@
 package com.haige.luban.wechat;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
 
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -26,6 +32,9 @@ import com.haige.luban.service.UserService;
 public class LoginController {
 	
 	Logger logger = LoggerFactory.getLogger(this.getClass());
+	
+	//@Value("${web.upload-path}")
+	//private String webUploadPath;
 
 	@Autowired
 	private LoginService loginService;
@@ -101,4 +110,35 @@ public class LoginController {
 		return true;
 	}
 
+	/**
+	 * 用户上传身份证
+	 * @param idCardFront 图片
+	 * @return
+	 * @throws IOException 
+	 * @throws IllegalStateException 
+	 */
+	@PostMapping(value = "/uploadIdCard", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseBody
+	public Boolean fileUpload(HttpSession session,@RequestParam("idCardFront") MultipartFile file,String fileName) throws IllegalStateException, IOException {
+		User user=(User)session.getAttribute("user");
+		logger.info(user.getRealName()+"上传身份证照片");
+		if (!file.isEmpty()) {
+			if (file.getContentType().contains("image")) {
+				String temp = "images" + File.separator + "upload" + File.separator;
+				// 获取图片的文件名
+				String originalFilename = file.getOriginalFilename();
+				// 获取图片的扩展名
+				String suffix = originalFilename.substring(originalFilename.lastIndexOf("."));
+				String filePath=user.getId()+"_"+user.getRealName()+"_"+user.getMobile();
+				String newName=System.currentTimeMillis()+"_1"+suffix;
+				File destFile=new File("d:/鲁班来啦"+File.separator+filePath+File.separator+newName);
+				if(!destFile.getParentFile().exists()) {
+					destFile.getParentFile().mkdirs();
+				}
+				file.transferTo(destFile);
+			}
+		}
+		return true;
+	}
+	  
 }

@@ -26,6 +26,7 @@ import org.hibernate.annotations.DynamicUpdate;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.haige.luban.enums.EnumCertificationStatus;
 import com.haige.luban.enums.EnumGenderType;
 import com.haige.luban.enums.EnumUserType;
 
@@ -109,7 +110,7 @@ public class User {
     private Date updateTime;
     
     //是否通过实名认证
-    private Boolean certification;
+    private EnumCertificationStatus certification;
     
     //身份证正面图片保存地址
     @JsonIgnore

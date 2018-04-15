@@ -74,7 +74,7 @@ public class LoginController {
 			user.setOpenId(openId);
 		}
 		else {
-			
+			return false;
 		}
 		User createdUser=userService.addUser(user);
 		if(createdUser!=null) {

@@ -1,5 +1,6 @@
 package com.haige.luban.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -36,7 +37,10 @@ import lombok.Data;
 @DynamicInsert(true)  
 @DynamicUpdate(true)
 @Data
-public class User {
+public class User implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
+
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;

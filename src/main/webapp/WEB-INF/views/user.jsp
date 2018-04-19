@@ -171,7 +171,10 @@ $(function(){
             	}
 			},
             {
-            	data: "nickName"
+            	data: "nickName",
+            	render : function(data, type, row) {
+					return '<a href="${basePath}/admin/user/'+ row.id +'">'+ data +'</a>';
+				}
 			},
             { 
             	data: "realName"

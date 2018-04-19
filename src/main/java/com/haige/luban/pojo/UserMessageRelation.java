@@ -1,5 +1,6 @@
 package com.haige.luban.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -21,7 +22,9 @@ import lombok.Data;
 @Entity
 @Table(name="user_message")
 @Data
-public class UserMessageRelation {
+public class UserMessageRelation implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

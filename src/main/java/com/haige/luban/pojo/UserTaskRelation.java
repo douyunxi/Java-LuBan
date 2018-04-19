@@ -1,5 +1,6 @@
 package com.haige.luban.pojo;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -22,7 +23,9 @@ import lombok.Data;
 @Entity
 @Table(name="user_task")
 @Data
-public class UserTaskRelation {
+public class UserTaskRelation implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

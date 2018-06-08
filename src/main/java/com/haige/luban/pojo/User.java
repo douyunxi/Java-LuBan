@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -135,4 +136,9 @@ public class User implements Serializable{
     @JsonIgnore
     @OneToMany(mappedBy="user",cascade=CascadeType.ALL,fetch=FetchType.LAZY)
     private Set<UserTaskRelation> userTaskRelation=new HashSet<UserTaskRelation>();
+    
+    //购物车-用户映射
+    @JsonIgnore
+    @OneToOne(cascade=CascadeType.ALL,fetch=FetchType.LAZY)
+    private Cart cart;
 }
